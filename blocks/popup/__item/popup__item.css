@@ -1,0 +1,15 @@
+.popup__item {
+  border: none;
+  border-bottom: #ccc 1px solid;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 10px;
+  padding-top: 30px;
+  color: #000000;
+}
+
+.popup__item:focus {
+  outline: none;
+}
