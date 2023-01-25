@@ -6,4 +6,5 @@
   top: 0;
   position: fixed;
   display: none;
+  align-items: center;
 }
