@@ -1,13 +1,13 @@
 /* PROFILE EDIT */
 
-let popupEditProfile = document.querySelector('.popup_type_profile'); // находим popupEditProfile
-let editButton = document.querySelector('.profile__edit-button'); // находим иконку открытия попапа 
-let closeButtonProfile = document.querySelector('.popup__close-icon'); // находим иконку закрытия попапа
-let newName = document.querySelector('.profile__title');  //находим текст "Имя"
-let newJob = document.querySelector('.profile__subtitle'); //находим текст "Роль"
-let formElement = document.querySelector('.popup_type_profile .popup__content'); // находим форму с инпутами
-let nameInput = document.querySelector('[name="profile-edit-name"]'); //находим значение инпута "Имя"
-let jobInput = document.querySelector('[name="profile-edit-role"]'); //находим значение инпута "Роль"
+const popupEditProfile = document.querySelector('.popup_type_profile'); // находим popupEditProfile
+const editButton = document.querySelector('.profile__edit-button'); // находим иконку открытия попапа 
+const closeButtonProfile = document.querySelector('.popup__close-icon'); // находим иконку закрытия попапа
+const newName = document.querySelector('.profile__title');  //находим текст "Имя"
+const newJob = document.querySelector('.profile__subtitle'); //находим текст "Роль"
+const formElement = document.querySelector('.popup_type_profile .popup__content'); // находим форму с инпутами
+const nameInput = document.querySelector('[name="profile-edit-name"]'); //находим значение инпута "Имя"
+const jobInput = document.querySelector('[name="profile-edit-role"]'); //находим значение инпута "Роль"
 
 function openPopup(modal) {
   modal.classList.add('popup_opened');
@@ -83,17 +83,10 @@ const inputLinkCard = document.querySelector('[name="card-edit-link"]')
 
 editButton.addEventListener('click', openPopupProfile);
 closeButtonProfile.addEventListener('click', () => closePopup(popupEditProfile));
-addButtonCard.addEventListener('click', () => openPopupAddCard());
+addButtonCard.addEventListener('click', () => openPopup(popupAddCard)); 
 closeButtonCard.addEventListener('click', () => closePopup(popupAddCard));
 closeButtonImage.addEventListener('click', () => closePopup(popupShowImage));
-cardSubmitButton.addEventListener('click', createCard)
 
-function openPopupAddCard () {
-  //alert(inputTitleCard.placeholder);
-  openPopup(popupAddCard);
-  inputTitleCard.;
-  inputLinkCard.placeholder.type;
-}
 
 
 function addRenderedCards(data) {
@@ -129,6 +122,10 @@ function renderCard(item) {
 addRenderedCards(initialCards);
 
 
+cardSubmitButton.addEventListener('click', createCard);
+
+
+
 function createCard(evt) {
   evt.preventDefault();
   const card = cardTemplate.cloneNode('true');
@@ -149,13 +146,9 @@ function createCard(evt) {
     popupShowImage.querySelector('.popup__image').alt = inputTitleCard.value;
     popupShowImage.querySelector('.popup__caption').textContent = inputTitleCard.value;
     openPopup(popupShowImage);
+    return card
   })
 
-
-
-
-  elements.prepend(card)
+  elements.prepend(card);
   closePopup(popupAddCard);
 }
-
-
