@@ -200,3 +200,44 @@ function handleFormSubmit(evt) {
 }
 
 formElement.addEventListener('submit', handleFormSubmit);
+
+
+
+
+///
+
+
+function createCard(evt) {
+  evt.preventDefault();
+  const card = cardTemplate.cloneNode('true');
+  card.querySelector('.element__image').src = inputLinkCard.value;
+  card.querySelector('.element__title').textContent = inputTitleCard.value;
+  card.querySelector('.element__image').alt = inputTitleCard.value;
+
+  card.querySelector('.element__remove').addEventListener('click', () => {
+    card.remove()
+  });
+  //like
+  card.querySelector('.element__like').addEventListener('click', () => {
+    card.querySelector('.element__like').classList.toggle('element__like_active');
+  })
+  //image
+  card.querySelector('.element__image').addEventListener('click', () => {
+    popupShowImage.querySelector('.popup__image').src = inputLinkCard.value;
+    popupShowImage.querySelector('.popup__image').alt = inputTitleCard.value;
+    popupShowImage.querySelector('.popup__caption').textContent = inputTitleCard.value;
+    openPopup(popupShowImage);
+  })
+
+
+
+
+  elements.prepend(card)
+  closePopup(popupAddCard);
+}
+
+function openPopupCard() {
+  openPopup(popupAddCard)
+  document.querySelector('.card-edit-title').src = 0;
+  document.querySelector('.element__title').textContent = 0;
+}
