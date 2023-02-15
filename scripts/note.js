@@ -130,14 +130,36 @@ cardSubmitForm.addEventListener('submit', createCard);
 
 function createCard(evt) {
   evt.preventDefault();
+  
+  const card = cardTemplate.cloneNode('true');
+  card.querySelector('.element__image').src = inputLinkCard.value;
+  card.querySelector('.element__title').textContent = inputTitleCard.value;
+  card.querySelector('.element__image').alt = inputTitleCard.value;
 
-  const card = renderCard({link: inputLinkCard.value, name: inputTitleCard.value})
+  card.querySelector('.element__remove').addEventListener('click', () => {
+    card.remove()
+  });
+  //like
+  card.querySelector('.element__like').addEventListener('click', () => {
+    card.querySelector('.element__like').classList.toggle('element__like_active');
+  })
+  //image
+  card.querySelector('.element__image').addEventListener('click', () => {
+    popupShowImageImageValue.src = inputLinkCard.value;
+    popupShowImageImageValue.alt = inputTitleCard.value;
+    popupShowImageCaptionValue.textContent = inputTitleCard.value;
+    openPopup(popupShowImage);
+    
+  })
 
-  console.log('link');
-
-  elements.prepend(card); 
+  elements.prepend(card);
   closePopup(popupAddCard);
   evt.target.reset();
-
+  return card
 }
 
+const card =  renderCard({link: inputLinkCard.value, name: item.name})
+elements.prepend(card); 
+
+
+/////////
