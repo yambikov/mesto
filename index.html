@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
   <link href="./pages/index.css" rel="stylesheet">
-  <script src="./scripts/index.js" defer></script> <!-- Добавил defer чтобы не ставить скрипт в конец-->
+  <script src="./scripts/index.js" defer></script> 
+  <script src="./scripts/validate.js" defer></script><!-- Добавил defer чтобы не ставить скрипт в конец-->
 </head>
 
 <body class="root">
@@ -28,38 +29,7 @@
         <button class="profile__add-button" type="button"></button>
       </section>
       <section class="elements">
-        <!--
-        <div class="element">
-          <img class="element__image" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
-          <h2 class="element__title">Карачаевск</h2>
-          <button class="element__like" type="button"></button>
-          <button class="element__remove" type="button"></button>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Карачаевск">
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Карачаевск">
-          <h2 class="element__title">Домбай</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Карачаевск">
-          <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Карачаевск">
-          <h2 class="element__title">Домбай</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-        <div class="element">
-          <img class="element__image" src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск">
-          <h2 class="element__title">Карачаево-Черкессия</h2>
-          <button class="element__like" type="button"></button>
-        </div>-->
+        
       </section>
     </main>
     <footer class="footer">
@@ -72,10 +42,12 @@
   <div class="popup popup_type_profile">
     <div class="popup__container">
       <button class="popup__close-icon" type="button"></button>
-      <form class="popup__content" name="profile-edit">
+      <form class="popup__content" name="profile-edit" novalidate>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input class="popup__item" name="profile-edit-name" type="text" value="" placeholder="">
-        <input class="popup__item" name="profile-edit-role" type="text" value="" placeholder="">
+        <input class="popup__item" name="name" type="text" value="" placeholder="" minlength="2" maxlength="40" required>
+        <span class="input-error-name error"></span> 
+        <input class="popup__item" name="role" type="text" value="" placeholder="" minlength="2" maxlength="200" required>
+        <span class="input-error-role error"></span>
         <input class="popup__button" type="submit" value="Сохранить">
       </form>
     </div>
@@ -88,8 +60,10 @@
       <button class="popup__close-icon" type="button"></button>
       <form class="popup__content" name="card-edit">
         <h2 class="popup__title">Новое место</h2>
-        <input class="popup__item" name="card-edit-title" type="text" value="" placeholder="Название">
-        <input class="popup__item" name="card-edit-link" type="url" value="" placeholder="Ссылка на картинку">
+        <input class="popup__item" name="title" type="text" value="" placeholder="Название" minlength="2" maxlength="30" autocomplete="off" required>
+        <span class="input-error-title error"></span>
+        <input class="popup__item" name="link" type="url" value="" placeholder="Ссылка на картинку" required autocomplete="off">
+        <span class="input-error-link error"></span>
         <input class="popup__button" type="submit" value="Сохранить">
       </form>
     </div>

@@ -6,8 +6,8 @@ const closeButtonProfile = document.querySelector('.popup__close-icon'); // на
 const newName = document.querySelector('.profile__title');  //находим текст "Имя"
 const newJob = document.querySelector('.profile__subtitle'); //находим текст "Роль"
 const formElement = document.querySelector('.popup_type_profile .popup__content'); // находим форму с инпутами
-const nameInput = document.querySelector('[name="profile-edit-name"]'); //находим значение инпута "Имя"
-const jobInput = document.querySelector('[name="profile-edit-role"]'); //находим значение инпута "Роль"
+const nameInput = document.querySelector('[name="name"]'); //находим значение инпута "Имя"
+const jobInput = document.querySelector('[name="role"]'); //находим значение инпута "Роль"
 
 function openPopup(modal) {
   modal.classList.add('popup_opened');
@@ -16,6 +16,26 @@ function openPopup(modal) {
 function closePopup(modal) {
   modal.classList.remove('popup_opened');
 }
+
+function closePopupEsc(evt) {
+  if (evt.key === 'Escape') {
+    const modal = document.querySelector('.popup_opened');
+    closePopup(modal);
+  }
+}
+
+document.addEventListener('keydown', closePopupEsc);
+
+const popups = document.querySelectorAll('.popup');
+
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    }
+  });
+});
+
 
 function openPopupProfile() {
   openPopup(popupEditProfile)
@@ -75,8 +95,8 @@ const removeCardButton = document.querySelector('.element__remove');
 const popupShowImage = document.querySelector('.popup_type_image');
 const closeButtonImage = popupShowImage.querySelector('.popup__close-icon');
 const cardSubmitForm = popupAddCard.querySelector('.popup__content');
-const inputTitleCard = document.querySelector('[name="card-edit-title"]');
-const inputLinkCard = document.querySelector('[name="card-edit-link"]')
+const inputTitleCard = document.querySelector('[name="title"]');
+const inputLinkCard = document.querySelector('[name="link"]')
 const popupShowImageImageValue = popupShowImage.querySelector('.popup__image');
 const popupShowImageCaptionValue = popupShowImage.querySelector('.popup__caption');
 
@@ -133,7 +153,7 @@ function createCard(evt) {
 
   const card = renderCard({link: inputLinkCard.value, name: inputTitleCard.value})
 
-  console.log('link');
+  //console.log('link');
 
   elements.prepend(card); 
   closePopup(popupAddCard);
