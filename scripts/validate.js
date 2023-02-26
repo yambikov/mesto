@@ -3,8 +3,8 @@ const showInputError = (inputElement, errorElement, inputErrorClass) => {
   errorElement.textContent = inputElement.validationMessage;
 };
 
-const hideInputError = (inputElement, errorElement) => {
-  inputElement.classList.remove('popup__input_type_error');
+const hideInputError = (inputElement, errorElement, inputErrorClass) => {
+  inputElement.classList.remove(inputErrorClass);
   errorElement.textContent = '';
 };
 
@@ -25,9 +25,9 @@ const hasInvalidInput = (inputs) => {
   return inputs.some((input) => !input.validity.valid);
 };
 
-const handleFormInput = (evt, form, inputErrorClass, formSubmitButtonElement, inactiveButtonClass, inputs) => {
-  const inputElement = evt.target;
+const handleFormInput = (evt, form, inputErrorClass, formSubmitButtonElement, inactiveButtonClass, inputs, inputElement) => {
   const errorElement = form.querySelector(`.input-error-${inputElement.name}`);
+  
   checkInputValidity(inputElement, errorElement, inputErrorClass);
   toggleButtonState(formSubmitButtonElement, inactiveButtonClass, hasInvalidInput(inputs));
 };
@@ -37,13 +37,18 @@ const handleFormSubmitNew = (evt) => {
 };
 
 const enableValidation = ({ inputSelector, inputErrorClass, submitButtonSelector, inactiveButtonClass }) => {
+
   const formList = Array.from(document.querySelectorAll('form'));
   formList.forEach((form) => {
-    form.addEventListener('submit', handleFormSubmitNew);
+
+    //form.addEventListener('submit', handleFormSubmitNew);
     const inputs = Array.from(form.querySelectorAll(inputSelector));
     const formSubmitButtonElement = form.querySelector(submitButtonSelector);
+
+    toggleButtonState(formSubmitButtonElement, inactiveButtonClass, hasInvalidInput(inputs));
+
     inputs.forEach((inputElement) => {
-      inputElement.addEventListener('input', (evt) => handleFormInput(evt, form, inputErrorClass, formSubmitButtonElement, inactiveButtonClass, inputs));
+      inputElement.addEventListener('input', (evt) => handleFormInput(evt, form, inputErrorClass, formSubmitButtonElement, inactiveButtonClass, inputs, inputElement ));
     });
   });
 };
