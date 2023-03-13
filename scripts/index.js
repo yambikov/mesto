@@ -1,8 +1,6 @@
 import Card from "./Card.js";
 
 
-// Const
-
 const initialCards = [
   {
     name: 'Архыз',
@@ -57,49 +55,51 @@ const selectors = {
   profileAddButton: '.profile__add-button',
   profileTitleInput: '[name="name"]',
   profileSubtitleInput: '[name="role"]',
-
 };
-const cardTemplate = document.querySelector('#template').content.querySelector(selectors.cardTemplate);
 
-const popupProfile = document.querySelector(selectors.popupTypeProfile); // находим popupEditProfile
-const popupAddCard = document.querySelector(selectors.popupTypeCard);
-const popupShowImage = document.querySelector(selectors.popupTypeImage);
-const popupShowImageImageValue = popupShowImage.querySelector(selectors.popupImage);
-const popupShowImageCaptionValue = popupShowImage.querySelector(selectors.popupCaption);
-const popups = document.querySelectorAll(selectors.popups);//находим значение инпута "Роль"
-const popupCloseButton = document.querySelector(selectors.popupCloseBtn); // находим иконку закрытия попапа
-const buttonCardClose = popupAddCard.querySelector(selectors.popupCloseBtn);
+const cardTemplate = document.querySelector('#template').content.querySelector(selectors.cardTemplate); // темплейт
+
+const popups = document.querySelectorAll(selectors.popups); // находим все попапы
+
+const popupProfile = document.querySelector(selectors.popupTypeProfile); // попап для профиля
+const popupCard = document.querySelector(selectors.popupTypeCard); // попап для карточки
+const popupImage = document.querySelector(selectors.popupTypeImage); // попап для картинки
+
+const popupImageImg = popupImage.querySelector(selectors.popupImage); // попап для картинки тег img
+const popupImageCaption = popupImage.querySelector(selectors.popupCaption); // попап для картинки тег p
+
+const profileCloseButton = popupProfile.querySelector(selectors.popupCloseBtn); // находим иконку закрытия попапа
+const imageCloseButton = popupImage.querySelector(selectors.popupCloseBtn); // кнопка закрытия картинки
 //const buttonCardRemove = document.querySelector('.element__remove');
-
-const profileEditButton = document.querySelector(selectors.profileEditBtn); // находим иконку открытия попапа 
+const profileEditButton = document.querySelector(selectors.profileEditBtn); // находим кнопку открытия попапа 
 const profileTitle = document.querySelector(selectors.profileTitle);  //находим текст "Имя"
 const profileSubtitle = document.querySelector(selectors.profileSubtitle); //находим текст "Роль"
 const profileSubmitForm = popupProfile.querySelector(selectors.popupForm); // находим форму с инпутами
-const profileTitleInput = document.querySelector(selectors.profileTitleInput); //находим значение инпута "Имя"
-const profileSubtitleInput = document.querySelector(selectors.profileSubtitleInput);
-const profileAddButton = document.querySelector(selectors.profileAddButton);
+const profileTitleInput = document.querySelector(selectors.profileTitleInput); //находим значение инпута формы профиля "Имя"
+const profileSubtitleInput = document.querySelector(selectors.profileSubtitleInput); //находим значение инпута формы профиля "Профессия"
+const cardAddButton = document.querySelector(selectors.profileAddButton); // кнопка открытия попапа для добавления карточки
 
-const cardsContainer = document.querySelector(selectors.containerForCards);
-const buttonImageClose = popupShowImage.querySelector(selectors.popupCloseBtn);
-const cardSubmitForm = popupAddCard.querySelector(selectors.popupForm);
-const cardTitleInput = document.querySelector(selectors.cardTitleInput);
-const cardLinkInput = document.querySelector(selectors.cardLinkInput)
+const cardsContainer = document.querySelector(selectors.containerForCards); // контейнер для карточек
+
+const cardSubmitForm = popupCard.querySelector(selectors.popupForm); // форма в попапе для карточек   
+const cardTitleInput = document.querySelector(selectors.cardTitleInput); // значение инпута Title для карточки  
+const cardLinkInput = document.querySelector(selectors.cardLinkInput) // значение инпута Link для карточки 
+const cardCloseButton = popupCard.querySelector(selectors.popupCloseBtn); // кнопка закрытия попапа карточки
 
 
 function openPopup(modal) {
   modal.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupEsc);
-
+  document.addEventListener('keydown', closePopupEsc); // добавляет слушателя на нажатие кнопки на весь документ
 }
 
 function closePopup(modal) {
   modal.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupEsc);
+  document.removeEventListener('keydown', closePopupEsc); // удаляет слушателя на нажатие кнопки на весь документ
 }
 
 function closePopupEsc(evt) {
   if (evt.key === 'Escape') {
-    const modal = document.querySelector('.popup_opened');
+    //const modal = document.querySelector('.popup_opened'); // без этого тоже работает
     closePopup(modal);
   }
 }
@@ -110,6 +110,7 @@ function openPopupProfile() {
   profileSubtitleInput.value = profileSubtitle.textContent; // аналогично
 }
 
+//закрытие попапа при клике на свободную область экрана
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
@@ -128,12 +129,12 @@ function handleFormSubmit(evt) {
 profileSubmitForm.addEventListener('submit', handleFormSubmit);
 
 /*  CARDS */
-profileEditButton.addEventListener('click', openPopupProfile);
-popupCloseButton.addEventListener('click', () => closePopup(popupProfile));
-profileAddButton.addEventListener('click', () => openPopup(popupAddCard));
-buttonCardClose.addEventListener('click', () => closePopup(popupAddCard));
-buttonImageClose.addEventListener('click', () => closePopup(popupShowImage));
-cardSubmitForm.addEventListener('submit', createCard);
+profileEditButton.addEventListener('click', openPopupProfile); // при клике на кнопку редактирования профиля открываем попап
+profileCloseButton.addEventListener('click', () => closePopup(popupProfile)); // при клике на кнопку закрытия попапа, закрываем попап профиля
+cardAddButton.addEventListener('click', () => openPopup(popupCard)); // при клике на кнопку добавления карточки, открываем попап карточки
+cardCloseButton.addEventListener('click', () => closePopup(popupCard)); // при клике на кнопку закрытия попапа карточки, закрываем попап карточки
+imageCloseButton.addEventListener('click', () => closePopup(popupImage)); // при клике на кнопку закрытия картинки, картинка закрывается
+cardSubmitForm.addEventListener('submit', createCard); // при отправке формы карточки, создаем карточку
 
 
 function renderCard(item) {
@@ -155,13 +156,12 @@ function renderCard(item) {
 
   //image
   card.querySelector(selectors.cardImage).addEventListener('click', () => {
-    popupShowImageImageValue.src = item.link;
-    popupShowImageImageValue.alt = item.name;
-    popupShowImageCaptionValue.textContent = item.name;
-    openPopup(popupShowImage);
+    popupImageImg.src = item.link;
+    popupImageImg.alt = item.name;
+    popupImageCaption.textContent = item.name;
+    openPopup(popupImage);
   });
 
-  console.log(card);
   return card;
 }
 
@@ -171,23 +171,49 @@ function addCards(data) {
   })
 }
 
-addCards(initialCards);
-
 function createCard(evt) {
   evt.preventDefault();
 
   const card = renderCard({ link: cardLinkInput.value, name: cardTitleInput.value })
 
   cardsContainer.prepend(card);
-  closePopup(popupAddCard);
+  closePopup(popupCard);
   evt.target.reset();
 
-  evt.submitter.classList.add('popup__button_disabled')
+  evt.submitter.classList.add('popup__button_disabled') // submitter  - это источник события, в данном случае кнопка Submit
   evt.submitter.disabled = true;
 
 }
 
+const newCard = new Card(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, initialCards);
 
-//const card = new Card;
-//card.getInfo();
+addCards(initialCards); // добавление карточек из массива
 
+newCard.getInfo();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// openPopup функция открытия попапа
+// closePopup функция закрытия попапа
+// closePopupEsc функция закрытия попапа по кнопке esc
+// openPopupProfile функция открывает попап редактирования профиля
+//handleFormSubmit функция обрабатывает форму редактирования профиля, не дает данным попасть на сервер, присваивает значения из формы карточке, закрывает попа
+
+/* Функция renderCard(item) принимает объект item в качестве аргумента и создает новый элемент карточки, используя шаблон, заданный в переменной cardTemplate.
+В этом шаблоне задаются разметка карточки и ее элементов, таких как картинка, заголовок и кнопки. Функция заполняет значениями соответствующих свойств объекта item в качестве содержимого для элементов карточки.
+Затем функция возвращает созданный элемент карточки, но не добавляет его в разметку. */
+
+//функция addCards создает и добавляет на страницу карточки, основываясь на переданных ей данных из массива
+
+/*  Функция createCard(evt) является обработчиком событий клика на кнопке "Добавить карточку". Когда пользователь кликает на эту кнопку, вызывается функция createCard(evt), которая в свою очередь создает новую карточку с пустым заголовком и ссылкой на картинку, и добавляет ее в список карточек на странице. Кроме того, функция createCard(evt) добавляет обработчик событий на кнопку удаления новой карточки, чтобы удалить ее при необходимости. */
