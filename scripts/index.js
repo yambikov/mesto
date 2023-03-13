@@ -185,9 +185,12 @@ function createCard(evt) {
 
 }
 
+addCards(initialCards); // добавление карточек из массива
+
+
 const newCard = new Card(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, initialCards);
 
-addCards(initialCards); // добавление карточек из массива
+
 
 newCard.getInfo();
 
