@@ -137,7 +137,7 @@ cardCloseButton.addEventListener('click', () => closePopup(popupCard)); // пр�
 imageCloseButton.addEventListener('click', () => closePopup(popupImage)); // при клике на кнопку закрытия картинки, картинка закрывается
 cardSubmitForm.addEventListener('submit', createCard); // при отправке формы карточки, создаем карточку
 
-
+/*
 function renderCard(item) {
   const card = cardTemplate.cloneNode('true');
   const buttonLike = card.querySelector(selectors.cardLikeBtn);
@@ -162,15 +162,28 @@ function renderCard(item) {
     popupImageCaption.textContent = item.name;
     openPopup(popupImage);
   });
-
+  console.log(card)
   return card;
 }
+*/
 
+
+
+initialCards.forEach((item) => {
+  const newCard = new Card(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, item);
+  cardsContainer.prepend(newCard.renderCard());
+})
+
+
+/*
 function addCards(data) {
   data.forEach((item) => {
-    cardsContainer.prepend(renderCard(item));
+    cardsContainer.prepend(newCard.renderCard(item));
   })
 }
+*/
+
+
 
 function createCard(evt) {
   evt.preventDefault();
@@ -188,7 +201,7 @@ function createCard(evt) {
 
 addCards(initialCards); // добавление карточек из массива
 
-const newCard = new Card(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, initialCards);
+
 
 
 newCard.getInfo();

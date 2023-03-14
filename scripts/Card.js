@@ -11,7 +11,7 @@ class Card {
 //static _template = document.querySelector('#template').content;
 
 
-  constructor(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, initialCards) {
+  constructor(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, initialCards, item) {
     this._selectors = selectors;
     this._cardTemplate = cardTemplate;
     this._openPopup = openPopup;
@@ -19,6 +19,7 @@ class Card {
     this._popupImageCaption = popupImageCaption;
     this._initialCards = initialCards;
     this._template = document.querySelector(selectors.template).content;
+    this._item = item;
 
   }
   
@@ -31,13 +32,13 @@ class Card {
 
 
   renderCard() {
-    
+    //console.log(this._item)
     const card = this._template.cloneNode(true);
     const buttonLike = card.querySelector(this._selectors.cardLikeBtn);
 
-    card.querySelector(this._selectors.cardImage).src = this._initialCards[1].link;
-    card.querySelector(this._selectors.cardTitle).textContent = this._initialCards[1].name;
-    card.querySelector(this._selectors.cardImage).alt = this._initialCards[1].name;
+    card.querySelector(this._selectors.cardImage).src = this._initialCards.link;
+    card.querySelector(this._selectors.cardTitle).textContent = this._initialCards.name;
+    card.querySelector(this._selectors.cardImage).alt = this._initialCards.name;
   
     // remove
     card.querySelector(this._selectors.cardRemoveBtn).addEventListener('click', () => {
@@ -57,17 +58,14 @@ class Card {
       this._openPopup(popupImage);
     });
   
-    console.log(card);
+    //console.log(card);
     return card;
   }
   
-  
-
   getInfo() {
-    console.log(this);
-    //console.log(this._template)
-    //console.log(this._name);
+    //console.log(this);
     //console.log(this._initialCards.link);
+    console.log(this._item[1])
   }
 };
 
