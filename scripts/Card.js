@@ -8,7 +8,8 @@
 
 class Card {
 
-static _template = document.querySelector('#template').content;
+//static _template = document.querySelector('#template').content;
+
 
   constructor(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, initialCards) {
     this._selectors = selectors;
@@ -17,7 +18,7 @@ static _template = document.querySelector('#template').content;
     this._popupImageImg = popupImageImg;
     this._popupImageCaption = popupImageCaption;
     this._initialCards = initialCards;
-    this._name = initialCards[0].name;
+    this._template = document.querySelector(selectors.template).content;
 
   }
   
@@ -31,13 +32,12 @@ static _template = document.querySelector('#template').content;
 
   renderCard() {
     
-  
-    const card = this._getTemplate().cloneNode(true);
+    const card = this._template.cloneNode(true);
     const buttonLike = card.querySelector(this._selectors.cardLikeBtn);
 
-    card.querySelector(this._selectors.cardImage).src = this._initialCards.link;
-    card.querySelector(this._selectors.cardTitle).textContent = this._initialCards.name;
-    card.querySelector(this._selectors.cardImage).alt = this._initialCards.name;
+    card.querySelector(this._selectors.cardImage).src = this._initialCards[1].link;
+    card.querySelector(this._selectors.cardTitle).textContent = this._initialCards[1].name;
+    card.querySelector(this._selectors.cardImage).alt = this._initialCards[1].name;
   
     // remove
     card.querySelector(this._selectors.cardRemoveBtn).addEventListener('click', () => {
@@ -65,11 +65,9 @@ static _template = document.querySelector('#template').content;
 
   getInfo() {
     console.log(this);
+    //console.log(this._template)
     //console.log(this._name);
     //console.log(this._initialCards.link);
-    //console.log(_getTemplate());
-    //console.log(renderCard())
-    //console.log(_template);
   }
 };
 

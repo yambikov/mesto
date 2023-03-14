@@ -32,6 +32,7 @@ const selectors = {
   containerForCards: '.elements',
   cardTemplate: '.element',
   popups: '.popup',
+  template: '#template',
 
   cardLikeBtn: '.element__like',
   cardImage: '.element__image',
@@ -187,12 +188,12 @@ function createCard(evt) {
 
 addCards(initialCards); // добавление карточек из массива
 
-
 const newCard = new Card(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, initialCards);
 
 
-
 newCard.getInfo();
+newCard.renderCard();
+
 
 
 
