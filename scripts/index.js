@@ -165,30 +165,22 @@ function renderCard(item) {
   console.log(card)
   return card;
 }
+
 */
 
+const newCard = new Card(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, popupImage);
 
 
-initialCards.forEach((item) => {
-  const newCard = new Card(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, item);
-  cardsContainer.prepend(newCard.renderCard());
-})
-
-
-/*
 function addCards(data) {
   data.forEach((item) => {
     cardsContainer.prepend(newCard.renderCard(item));
-  })
+  });
 }
-*/
-
-
 
 function createCard(evt) {
   evt.preventDefault();
 
-  const card = renderCard({ link: cardLinkInput.value, name: cardTitleInput.value })
+  const card = newCard.renderCard({ link: cardLinkInput.value, name: cardTitleInput.value })
 
   cardsContainer.prepend(card);
   closePopup(popupCard);
@@ -204,8 +196,8 @@ addCards(initialCards); // добавление карточек из масси
 
 
 
-newCard.getInfo();
-newCard.renderCard();
+//newCard.getInfo();
+//newCard.renderCard();
 
 
 
