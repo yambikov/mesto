@@ -100,7 +100,7 @@ function closePopup(modal) {
 
 function closePopupEsc(evt) {
   if (evt.key === 'Escape') {
-    //const modal = document.querySelector('.popup_opened'); // без этого тоже работает
+    const modal = document.querySelector('.popup_opened');
     closePopup(modal);
   }
 }
@@ -174,6 +174,7 @@ const newCard = new Card(selectors, cardTemplate, openPopup, popupImageImg, popu
 function addCards(data) {
   data.forEach((item) => {
     cardsContainer.prepend(newCard.renderCard(item));
+    //newCard.remove();
   });
 }
 
@@ -192,6 +193,10 @@ function createCard(evt) {
 }
 
 addCards(initialCards); // добавление карточек из массива
+
+function cardRemove () {
+ 
+}
 
 
 

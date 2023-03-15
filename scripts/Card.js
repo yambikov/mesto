@@ -7,7 +7,7 @@
  */
 
 class Card {
-  constructor(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, popupImage) {
+  constructor(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, popupImage, newCard) {
     this._selectors = selectors;
     this._cardTemplate = cardTemplate;
     this._openPopup = openPopup;
@@ -15,6 +15,7 @@ class Card {
     this._popupImageImg = popupImageImg;
     this._popupImageCaption = popupImageCaption;
     this._template = document.querySelector(selectors.template).content;
+    this.newCard = newCard;
   }
 
   renderCard(item) {
@@ -27,7 +28,13 @@ class Card {
 
     // remove
     card.querySelector(this._selectors.cardRemoveBtn).addEventListener('click', () => {
-      card.remove();
+      //console.log(card);
+      //console.log(this);
+      console.log(this._cardTemplate)
+      this._cardTemplate.remove();
+
+
+      //this.remove();
     });
 
     // like
@@ -42,7 +49,7 @@ class Card {
       this._popupImageCaption.textContent = item.name;
       this._openPopup(this._popupImage);
     });
-
+    //console.log (this);
     return card;
   }
 }
