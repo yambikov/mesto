@@ -6,52 +6,62 @@
 - содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки.
  */
 
+
+
 class Card {
-  constructor(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, popupImage, newCard) {
+  static _template = document.querySelector('#template').content;
+  
+  constructor(item, selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, popupImage) {
     this._selectors = selectors;
     this._cardTemplate = cardTemplate;
     this._openPopup = openPopup;
     this._popupImage = popupImage;
     this._popupImageImg = popupImageImg;
     this._popupImageCaption = popupImageCaption;
-    this._template = document.querySelector(selectors.template).content;
-    this.newCard = newCard;
+    this._name = item.name;
+    this._link = item.link;
+
+    this._buttonDeleteHandler = this._buttonDeleteHandler.bind(this);
   }
 
-  renderCard(item) {
-    const card = this._template.cloneNode(true);
-    const buttonLike = card.querySelector(this._selectors.cardLikeBtn);
+  renderCard() {
+    this._card = Card._template.querySelector(this._selectors.cardTemplate).cloneNode(true);
 
-    card.querySelector(this._selectors.cardImage).src = item.link;
-    card.querySelector(this._selectors.cardTitle).textContent = item.name;
-    card.querySelector(this._selectors.cardImage).alt = item.name;
+    const cardImageValue = this._card.querySelector(this._selectors.cardImage);
+    const cardTitleValue = this._card.querySelector(this._selectors.cardTitle);
+
+    const buttonCardLike = this._card.querySelector(this._selectors.cardLikeBtn);
+    const buttonCardRemove = this._card.querySelector(this._selectors.cardRemoveBtn);
+    const buttonCardImage = this._card.querySelector(this._selectors.cardImage);
+    
+    cardImageValue.src = this._link;
+    cardImageValue.alt = this._name;
+    cardTitleValue.textContent = this._name;
 
     // remove
-    card.querySelector(this._selectors.cardRemoveBtn).addEventListener('click', () => {
-      //console.log(card);
-      //console.log(this);
-      console.log(this._cardTemplate)
-      this._cardTemplate.remove();
-
-
-      //this.remove();
-    });
+    buttonCardRemove.addEventListener('click', () => this._buttonDeleteHandler());
 
     // like
-    buttonLike.addEventListener('click', () => {
-      buttonLike.classList.toggle(this._selectors.cardLikeActive);
+    buttonCardLike.addEventListener('click', () => {
+      buttonCardLike.classList.toggle(this._selectors.cardLikeActive);
     });
 
     // image
-    card.querySelector(this._selectors.cardImage).addEventListener('click', () => {
-      this._popupImageImg.src = item.link;
-      this._popupImageImg.alt = item.name;
-      this._popupImageCaption.textContent = item.name;
+    buttonCardImage.addEventListener('click', () => {
+      this._popupImageImg.src = cardImageValue.src;
+      this._popupImageImg.alt = cardImageValue.alt;
+      this._popupImageCaption.textContent = cardTitleValue.textContent;
       this._openPopup(this._popupImage);
     });
-    //console.log (this);
-    return card;
+
+    return this._card;
+  }
+
+  _buttonDeleteHandler() {
+    this._card.remove();
   }
 }
+
+console.log (Card);
 
 export default Card;

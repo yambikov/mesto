@@ -125,6 +125,7 @@ function handleFormSubmit(evt) {
   profileTitle.textContent = profileTitleInput.value;
   profileSubtitle.textContent = profileSubtitleInput.value;
   closePopup(popupProfile);
+  console.log(123)
 }
 
 profileSubmitForm.addEventListener('submit', handleFormSubmit);
@@ -137,97 +138,29 @@ cardCloseButton.addEventListener('click', () => closePopup(popupCard)); // пр�
 imageCloseButton.addEventListener('click', () => closePopup(popupImage)); // при клике на кнопку закрытия картинки, картинка закрывается
 cardSubmitForm.addEventListener('submit', createCard); // при отправке формы карточки, создаем карточку
 
-/*
-function renderCard(item) {
-  const card = cardTemplate.cloneNode('true');
-  const buttonLike = card.querySelector(selectors.cardLikeBtn);
-  card.querySelector(selectors.cardImage).src = item.link;
-  card.querySelector(selectors.cardTitle).textContent = item.name;
-  card.querySelector(selectors.cardImage).alt = item.name;
-
-  // remove
-  card.querySelector(selectors.cardRemoveBtn).addEventListener('click', () => {
-    card.remove()
-  });
-
-  //like
-  buttonLike.addEventListener('click', () => {
-    buttonLike.classList.toggle(selectors.cardLikeActive);
-  });
-
-  //image
-  card.querySelector(selectors.cardImage).addEventListener('click', () => {
-    popupImageImg.src = item.link;
-    popupImageImg.alt = item.name;
-    popupImageCaption.textContent = item.name;
-    openPopup(popupImage);
-  });
-  console.log(card)
-  return card;
-}
-
-*/
-
-const newCard = new Card(selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, popupImage);
-
-
 function addCards(data) {
   data.forEach((item) => {
-    cardsContainer.prepend(newCard.renderCard(item));
-    //newCard.remove();
+    const card = new Card(item, selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, popupImage);
+
+    cardsContainer.prepend(card.renderCard());
   });
 }
 
 function createCard(evt) {
   evt.preventDefault();
 
-  const card = newCard.renderCard({ link: cardLinkInput.value, name: cardTitleInput.value })
+  const card = new Card({ link: cardLinkInput.value, name: cardTitleInput.value }, selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, popupImage);
 
-  cardsContainer.prepend(card);
+  cardsContainer.prepend(card.renderCard());
+
+  console.log (Card)
+
   closePopup(popupCard);
   evt.target.reset();
 
-  evt.submitter.classList.add('popup__button_disabled') // submitter  - это источник события, в данном случае кнопка Submit
-  evt.submitter.disabled = true;
+  evt.target.querySelector('.popup__button').classList.add('popup__button_disabled');
+  evt.target.querySelector('.popup__button').disabled = true;
 
 }
 
 addCards(initialCards); // добавление карточек из массива
-
-function cardRemove () {
- 
-}
-
-
-
-
-//newCard.getInfo();
-//newCard.renderCard();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// openPopup функция открытия попапа
-// closePopup функция закрытия попапа
-// closePopupEsc функция закрытия попапа по кнопке esc
-// openPopupProfile функция открывает попап редактирования профиля
-//handleFormSubmit функция обрабатывает форму редактирования профиля, не дает данным попасть на сервер, присваивает значения из формы карточке, закрывает попа
-
-/* Функция renderCard(item) принимает объект item в качестве аргумента и создает новый элемент карточки, используя шаблон, заданный в переменной cardTemplate.
-В этом шаблоне задаются разметка карточки и ее элементов, таких как картинка, заголовок и кнопки. Функция заполняет значениями соответствующих свойств объекта item в качестве содержимого для элементов карточки.
-Затем функция возвращает созданный элемент карточки, но не добавляет его в разметку. */
-
-//функция addCards создает и добавляет на страницу карточки, основываясь на переданных ей данных из массива
-
-/*  Функция createCard(evt) является обработчиком событий клика на кнопке "Добавить карточку". Когда пользователь кликает на эту кнопку, вызывается функция createCard(evt), которая в свою очередь создает новую карточку с пустым заголовком и ссылкой на картинку, и добавляет ее в список карточек на странице. Кроме того, функция createCard(evt) добавляет обработчик событий на кнопку удаления новой карточки, чтобы удалить ее при необходимости. */
