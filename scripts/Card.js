@@ -39,7 +39,7 @@ class Card {
     cardTitleValue.textContent = this._name;
 
     // remove
-    buttonCardRemove.addEventListener('click', () => this._buttonDeleteHandler());
+    buttonCardRemove.addEventListener('click', this._buttonDeleteHandler());
 
     // like
     buttonCardLike.addEventListener('click', () => {
@@ -62,6 +62,5 @@ class Card {
   }
 }
 
-console.log (Card);
 
 export default Card;
