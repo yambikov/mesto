@@ -1,7 +1,1 @@
-class FormValidator {
-
-constructor()
-
-};
-
-export default FormValidator;
+class FormValidator {};

@@ -1,5 +1,4 @@
 import Card from "./Card.js";
-import FormValidator from "./FormValidator";
 
 
 const initialCards = [
@@ -150,9 +149,11 @@ function addCards(data) {
 function createCard(evt) {
   evt.preventDefault();
 
-  const card = new Card({ link: cardLinkInput.value, мname: cardTitleInput.value }, selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, popupImage);
+  const card = new Card({ link: cardLinkInput.value, name: cardTitleInput.value }, selectors, cardTemplate, openPopup, popupImageImg, popupImageCaption, popupImage);
 
   cardsContainer.prepend(card.renderCard());
+
+  console.log (Card)
 
   closePopup(popupCard);
   evt.target.reset();
