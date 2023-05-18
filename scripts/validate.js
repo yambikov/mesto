@@ -1,3 +1,5 @@
+import FormValidator from "./FormValidator.js";
+
 // Функция showInputError отображает сообщение об ошибке для поля ввода, которое не прошло валидацию, путем добавления класса inputErrorClass для поля ввода и установки текста validationMessage в элементе errorElement.
 
 const showInputError = (inputElement, errorElement, inputErrorClass) => {
