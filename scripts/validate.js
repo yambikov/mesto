@@ -17,7 +17,6 @@ const hideInputError = (inputElement, errorElement, inputErrorClass) => {
 // Функция toggleButtonState изменяет состояние кнопки отправки формы, путем переключения класса inactiveButtonClass в зависимости от значения buttonState и установки атрибута disabled для кнопки в соответствии с buttonState.
 
 const toggleButtonState = (formSubmitButtonElement, inactiveButtonClass, buttonState) => {
-  console.log(buttonState);
   formSubmitButtonElement.classList.toggle(inactiveButtonClass, buttonState);
   formSubmitButtonElement.disabled = buttonState;
 };
