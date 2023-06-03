@@ -41,7 +41,7 @@ const hasInvalidInput = (inputs) => {
 };
 
 // Функция обработки события ввода в поле формы
-const handleFormInput = (form, inputErrorClass, formSubmitButtonElement, inactiveButtonClass, inputs, inputElement) => {
+const handleFormInput = (evt, form, inputErrorClass, formSubmitButtonElement, inactiveButtonClass, inputs, inputElement) => {
   // Находит элемент ошибки ввода
   const errorElement = form.querySelector(`.input-error-${inputElement.name}`);
 
@@ -53,11 +53,11 @@ const handleFormInput = (form, inputErrorClass, formSubmitButtonElement, inactiv
 // Функция включения валидации формы
 const enableValidation = ({ formSelector, inputSelector, inputErrorClass, submitButtonSelector, inactiveButtonClass }) => {
   // Находит все формы по селектору
-  const formList = Array.from(document.querySelectorAll(formSelector)); console.log(formList);
+  const formList = Array.from(document.querySelectorAll(formSelector));
   // Для каждой формы настраивает валидацию
   formList.forEach((form) => {
     // Находит все поля ввода в форме
-    const inputs = Array.from(form.querySelectorAll(inputSelector)); console.log(formList);
+    const inputs = Array.from(form.querySelectorAll(inputSelector));
     // Находит кнопку отправки формы
     const formSubmitButtonElement = form.querySelector(submitButtonSelector);
 
@@ -66,7 +66,7 @@ const enableValidation = ({ formSelector, inputSelector, inputErrorClass, submit
 
     // Добавляет обработчики событий input для каждого поля ввода
     inputs.forEach((inputElement) => {
-      inputElement.addEventListener('input', () => handleFormInput(form, inputErrorClass, formSubmitButtonElement, inactiveButtonClass, inputs, inputElement));
+      inputElement.addEventListener('input', (evt) => handleFormInput(evt, form, inputErrorClass, formSubmitButtonElement, inactiveButtonClass, inputs, inputElement));
     });
   });
 };

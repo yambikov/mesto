@@ -10,7 +10,6 @@ const newJob = document.querySelector('.profile__subtitle');
 const profileSubmitForm = popupEditProfile.querySelector('.popup__content');
 const nameInput = document.querySelector('[name="name"]');
 const jobInput = document.querySelector('[name="role"]');
-
 const popupAddCard = document.querySelector('.popup_type_card');
 const cardsContainer = document.querySelector('.elements');
 const profileEditButton = document.querySelector('.profile__add-button');
@@ -23,6 +22,7 @@ const inputLinkCard = document.querySelector('[name="link"]');
 const popupShowImageImageValue = popupShowImage.querySelector('.popup__image');
 const popupShowImageCaptionValue = popupShowImage.querySelector('.popup__caption');
 const popups = document.querySelectorAll('.popup');
+const cardTemplate = document.getElementById('template');
 
 // Слушатели
 buttonProfileEdit.addEventListener('click', openPopupProfile);
@@ -96,7 +96,7 @@ function createCard(evt) {
 }
 
 function createNewCard(data) {
-  const card = new Card(data, openImage);
+  const card = new Card(data, openImage, cardTemplate);
   const cardElement = card.generateCard();
   return cardElement;
 }
