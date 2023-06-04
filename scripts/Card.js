@@ -5,7 +5,6 @@ class Card {
     this._name = data.name;
     this._openImage = openImage;
     this.cardTemplate = cardTemplate;
-
   }
 
   _getTemplate() {
@@ -56,4 +55,4 @@ class Card {
 }
 
 
-export { Card }
+export default Card

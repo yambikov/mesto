@@ -1,5 +1,6 @@
-import { Card } from "./Card.js";
-import { initialCards } from "./constants.js";
+import Card from "./Card.js";
+import initialCards from "./constants.js";
+import FormValidator from "./validate.js";
 
 // Переменные
 const popupEditProfile = document.querySelector('.popup_type_profile');
@@ -106,3 +107,17 @@ initialCards.forEach((data) => {
   const cardElement = createNewCard(data);
   cardsContainer.prepend(cardElement);
 });
+
+const formData = {
+  formSelector: '.popup__content',
+  inputSelector: '.popup__item',
+  inputErrorClass: 'popup__input_type_error',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+}
+
+const formList = Array.from(document.querySelectorAll(formData.formSelector));
+formList.forEach((formElement) => {
+  const validator = new FormValidator(formData, formElement);
+  validator.enableValidation();
+})
