@@ -1,6 +1,6 @@
 import Card from "./Card.js";
 import initialCards from "./constants.js";
-import FormValidator from "./validate.js";
+import FormValidator from "./FormValidator.js";
 
 // Переменные
 const popupEditProfile = document.querySelector('.popup_type_profile');
