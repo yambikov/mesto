@@ -1,11 +1,11 @@
 import Card from "./Card.js";
 import initialCards from "./constants.js";
-import FormValidator from "./validate.js";
+import FormValidator from "./FormValidator.js";
 
 // Переменные
 const popupEditProfile = document.querySelector('.popup_type_profile');
 const buttonProfileEdit = document.querySelector('.profile__edit-button');
-const popupCloseButton = document.querySelector('.popup__close-icon');
+const buttonProfileClose = popupEditProfile.querySelector('.popup__close-icon');
 const newName = document.querySelector('.profile__title');
 const newJob = document.querySelector('.profile__subtitle');
 const profileSubmitForm = popupEditProfile.querySelector('.popup__content');
@@ -27,7 +27,7 @@ const cardTemplate = document.getElementById('template');
 
 // Слушатели
 buttonProfileEdit.addEventListener('click', openPopupProfile);
-popupCloseButton.addEventListener('click', () => closePopup(popupEditProfile));
+buttonProfileClose.addEventListener('click', () => closePopup(popupEditProfile));
 profileEditButton.addEventListener('click', () => openPopup(popupAddCard));
 buttonCardClose.addEventListener('click', () => closePopup(popupAddCard));
 buttonImageClose.addEventListener('click', () => closePopup(popupShowImage));
