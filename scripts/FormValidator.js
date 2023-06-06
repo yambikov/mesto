@@ -11,6 +11,7 @@ class FormValidator {
     this._disabledButtonClass = formData.inactiveButtonClass;
 
     this._formButton = this._formElement.querySelector(this._submitButtonSelector);
+
     this._inputs = Array.from(this._formElement.querySelectorAll(this._inputSelector));
 
 
@@ -42,9 +43,7 @@ class FormValidator {
     }
   };
 
-
-
-
+  
   _handleFormInput(input) {
     const errorMessage = this._formElement.querySelector(`.input-error-${input.name}`);
 
@@ -82,6 +81,13 @@ class FormValidator {
 
     this._setEventListeners();
   }
+
+  resetValidation() {
+    this._inputList.forEach((input) => {
+      this._hideInputError(input)
+    })
+    this._toggleButtonState()
+  } 
 
 
 }
