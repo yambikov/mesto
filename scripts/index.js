@@ -28,7 +28,7 @@ const cardTemplate = document.getElementById('template');
 // Слушатели
 buttonProfileEdit.addEventListener('click', openPopupProfile);
 buttonProfileClose.addEventListener('click', () => closePopup(popupEditProfile));
-profileEditButton.addEventListener('click', () => openPopup(popupAddCard));
+profileEditButton.addEventListener('click', openPopupCard);
 buttonCardClose.addEventListener('click', () => closePopup(popupAddCard));
 buttonImageClose.addEventListener('click', () => closePopup(popupShowImage));
 
@@ -104,11 +104,12 @@ const formData = {
   inactiveButtonClass: 'popup__button_disabled',
 }
 
-const formList = Array.from(document.querySelectorAll(formData.formSelector));
-formList.forEach((formElement) => {
-  const validator = new FormValidator(formData, formElement);
-  validator.enableValidation();
-})
+
+const profileFormValidator = new FormValidator(formData, profileSubmitForm);
+profileFormValidator.enableValidation();
+
+const cardFormValidator = new FormValidator(formData, cardSubmitForm);
+cardFormValidator.enableValidation();
 
 function openPopup(modal) {
   modal.classList.add('popup_opened');
@@ -124,4 +125,10 @@ function openPopupProfile() {
   openPopup(popupEditProfile);
   nameInput.value = newName.textContent;
   jobInput.value = newJob.textContent;
+  profileFormValidator.resetValidation(); 
+}
+
+function openPopupCard() {
+  openPopup(popupAddCard);
+  cardFormValidator.resetValidation(); 
 }
