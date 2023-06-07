@@ -1,64 +1,96 @@
 class FormValidator {
+
   constructor(formData, formElement) {
+
+    this._formData = formData;
     this._formElement = formElement;
     this._inputSelector = formData.inputSelector;
     this._inputErrorClass = formData.inputErrorClass;
     this._submitButtonSelector = formData.submitButtonSelector;
-    this._inactiveButtonClass = formData.inactiveButtonClass;
+    this._disabledButtonClass = formData.inactiveButtonClass;
+    this._formButton = this._formElement.querySelector(this._submitButtonSelector);
+    this._inputs = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+
   }
 
-  _showInputError(inputElement, errorMessage) {
-    inputElement.classList.add(this._inputErrorClass);
-    errorMessage.textContent = inputElement.validationMessage;
+  // Вкл. ошибку добавляя класс input-error-title к span
+  _showInputError(input, errorMessage) {
+    input.classList.add(this._inputErrorClass);
+    errorMessage.textContent = input.validationMessage;
   };
 
-  _hideInputError(inputElement, errorMessage) {
-    inputElement.classList.remove(this._inputErrorClass);
+  // Выкл. ошибку удаляя класс из span
+  _hideInputError(input, errorMessage) {
+    input.classList.remove(this._inputErrorClass);
     errorMessage.textContent = '';
   };
 
-  _toggleButtonState(formButton, formButtonDisabled) {
-    formButton.classList.toggle(this._inactiveButtonClass, formButtonDisabled);
-  };
-  
-
-  _checkInputValidity (inputElement) { 
-    const errorMessage = this._formElement.querySelector(`.input-error-${inputElement.name}`);
-    if (inputElement.validity.valid) {
-      this._hideInputError(inputElement, errorMessage);
+  // Переключатель кнопки (вкл./выкл.)
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this._disableButton();
     } else {
-      this._showInputError(inputElement, errorMessage);
+      this._enableButton();
+    }
+  }
+  
+  // Включение кнопки
+  _enableButton() {
+    this._formButton.classList.remove(this._disabledButtonClass);
+    this._formButton.disabled = false;
+  }
+  
+  // Отключение кнопки
+  _disableButton() {
+    this._formButton.classList.add(this._disabledButtonClass);
+    this._formButton.disabled = true;
+  }
+
+  // Переключатель сообщения об ошибке (вкл./выкл.)
+  _handleFormInput(input) {
+    const errorMessage = this._formElement.querySelector(`.input-error-${input.name}`);
+    if (input.validity.valid) {
+      this._hideInputError(input, errorMessage);
+    } else {
+      this._showInputError(input, errorMessage);
     }
   };
 
-  _hasInvalidInput (inputs) {
-    return inputs.some((input) => !input.validity.valid);
+  // Поиск в массиве полей ввода невалидного поля
+  _hasInvalidInput() {
+    return this._inputs.some((input) => !input.validity.valid);
   };
 
-  _handleFormInput() {
-    const inputs = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-
-    const formButton = this._formElement.querySelector(this._submitButtonSelector);
-
-    this._toggleButtonState(formButton, this._hasInvalidInput(inputs));
-
-    inputs.forEach((inputElement) => {
-      inputElement.addEventListener('input', () => {
-
-        this._checkInputValidity(inputElement);
-
-        this._toggleButtonState(formButton, this._hasInvalidInput(inputs));
+  // Вешаем слушателей
+  _setEventListeners() {
+    this._inputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        this._handleFormInput(input);
+        this._toggleButtonState();
       });
     });
   }
 
+  // Включаем валидацию
   enableValidation() {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
 
-    this._handleFormInput();
+    this._setEventListeners();
   }
+
+  // Сбрасываем ошибки и выключаем кнопку
+  resetValidation() {
+    console.log("прошло")
+    this._inputs.forEach((input) => {
+      const errorMessage = this._formElement.querySelector(`.input-error-${input.name}`);
+      this._hideInputError(input, errorMessage);
+    });
+
+    this._disableButton();
+  }
+
 }
 
 
