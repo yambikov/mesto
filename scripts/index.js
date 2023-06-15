@@ -85,21 +85,21 @@ function handleSubmitCardForm(evt) {
 
 
 // должно уйти в render class Section
-function createCard(data) {
-  const card = new Card(data, openImage, cardTemplate);
-  const cardElement = card.generateCard();
-  return cardElement;
-}
+// function createCard(data) {
+//   const card = new Card(data, openImage, cardTemplate);
+//   const cardElement = card.generateCard();
+//   return cardElement;
+// }
+
+// //ушло в class Section
+// initialCards.forEach((data) => {
+//   renderCard(data);
+// });
 
 //ушло в class Section
-initialCards.forEach((data) => {
-  renderCard(data);
-});
-
-//ушло в class Section
-function renderCard(card) {
-  cardsContainer.prepend(createCard(card))
-}
+// function renderCard(card) {
+//   cardsContainer.prepend(createCard(card))
+// }
 
 const formData = {
   formSelector: '.popup__content',
@@ -140,6 +140,7 @@ const cardFormValidator = new FormValidator(formData, cardForm);
 cardFormValidator.enableValidation();
 
 
+
 // class Section отвечает за отрисовку элементов на странице
 class Section {
   constructor({ items /* initialCards */, renderer/* function createCard */ }, selector /* cardsContainer */) {
@@ -159,53 +160,69 @@ class Section {
 
 };
 
-class Popup {
-  constructor()
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (data) => {
+      const card = new Card(data, openImage, cardTemplate);
+      const cardElement = card.generateCard();
+      section.addItem(cardElement);
+    }
+  },
+  '.elements',
+);
 
-  // popups.forEach((popup) => {
-  //   popup.addEventListener('click', (evt) => {
-  //     if (evt.target === popup) {
-  //       closePopup(popup);
-  //     }
-  //   });
-  // });
-
-
-  // function closePopupEsc(evt) {
-  //   if (evt.key === 'Escape') {
-  //     const modal = document.querySelector('.popup_opened');
-  //     closePopup(modal);
-  //   }
-  // }
+section.renderItems();
 
 
-  // function openPopup(modal) {
-  //   modal.classList.add('popup_opened');
-  //   document.addEventListener('keydown', closePopupEsc);
-  // }
+
+// class Popup {
+//   constructor()
+
+//   // popups.forEach((popup) => {
+//   //   popup.addEventListener('click', (evt) => {
+//   //     if (evt.target === popup) {
+//   //       closePopup(popup);
+//   //     }
+//   //   });
+//   // });
 
 
-  // function closePopup(modal) {
-  //   modal.classList.remove('popup_opened');
-  //   document.removeEventListener('keydown', closePopupEsc);
-  // }
+//   // function closePopupEsc(evt) {
+//   //   if (evt.key === 'Escape') {
+//   //     const modal = document.querySelector('.popup_opened');
+//   //     closePopup(modal);
+//   //   }
+//   // }
 
-};
 
-class PopupWithImage extends Popup {
-  constructor()
+//   // function openPopup(modal) {
+//   //   modal.classList.add('popup_opened');
+//   //   document.addEventListener('keydown', closePopupEsc);
+//   // }
 
-  // function openImage(data) {
-  //   imagePopupImage.src = data.link;
-  //   imagePopupImage.alt = data.name;
-  //   imagePopupCaption.textContent = data.name;
-  //   openPopup(imagePopup);
-  // }
 
-};
+//   // function closePopup(modal) {
+//   //   modal.classList.remove('popup_opened');
+//   //   document.removeEventListener('keydown', closePopupEsc);
+//   // }
 
-class PopupWithForm extends Popup {
-  constructor()
-// пока сложно
-}
+// };
+
+// class PopupWithImage extends Popup {
+//   constructor()
+
+//   // function openImage(data) {
+//   //   imagePopupImage.src = data.link;
+//   //   imagePopupImage.alt = data.name;
+//   //   imagePopupCaption.textContent = data.name;
+//   //   openPopup(imagePopup);
+//   // }
+
+// };
+
+// class PopupWithForm extends Popup {
+//   constructor()
+//   // пока сложно
+// }
 

@@ -1,16 +1,31 @@
-export default class Section {
-  constructor({ data, renderer }, selector) {
-    this._renderedItems = data;
+class Section {
+  constructor({ items, renderer }, containerSelector) {
+    this._items = items;
     this._renderer = renderer;
-
-    this._container = document.querySelector(selector);
+    this._container = document.querySelector(containerSelector);
   }
 
   renderItems() {
-    this._renderedItems.forEach(item => this._renderer(item))
+    this._items.forEach((item) => {
+      this._renderer(item);
+    });
   }
 
-  setItem(element) {
-    this._container.append(element);
+  addItem(element) {
+    this._container.prepend(element);
   }
 }
+
+// Использование класса Section
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: (data) => {
+      const card = createCard(data);
+      section.addItem(card);
+    }
+  },
+  '.elements'
+);
+
+section.renderItems();
