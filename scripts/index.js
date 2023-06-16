@@ -33,7 +33,7 @@ cardAddButton.addEventListener('click', openCardPopup);
 cardCloseButton.addEventListener('click', () => closePopup(cardPopup));
 imageCloseButton.addEventListener('click', () => closePopup(imagePopup));
 
-// class Popup
+// class ушло в Popup
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if (evt.target === popup) {
@@ -47,7 +47,7 @@ cardForm.addEventListener('submit', handleSubmitCardForm);
 
 // Функции
 
-// class Popup
+// ушло в class Popup
 function closePopupEsc(evt) {
   if (evt.key === 'Escape') {
     const modal = document.querySelector('.popup_opened');
@@ -79,25 +79,24 @@ function handleSubmitCardForm(evt) {
     link: linkInput.value,
   };
 
-  renderCard(newCard); 
+  renderCard(newCard);
   closePopup(cardPopup);
   //evt.target.reset();
 }
 
 
-// должно уйти в render class Section
-// function createCard(data) {
-//   const card = new Card(data, openImage, cardTemplate);
-//   const cardElement = card.generateCard();
-//   return cardElement;
-// }
+function createCard(data) {
+  const card = new Card(data, openImage, cardTemplate);
+  const cardElement = card.generateCard();
+  return cardElement;
+}
 
 // //ушло в class Section
 // initialCards.forEach((data) => {
 //   renderCard(data);
 // });
 
-//ушло в class Section
+
 function renderCard(card) {
   cardsContainer.prepend(createCard(card))
 }
@@ -110,13 +109,13 @@ const formData = {
   inactiveButtonClass: 'popup__button_disabled',
 };
 
-// class Popup
+// ушло в class Popup
 function openPopup(modal) {
   modal.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 }
 
-// class Popup
+// ушло в class Popup
 function closePopup(modal) {
   modal.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupEsc);
@@ -141,25 +140,7 @@ const cardFormValidator = new FormValidator(formData, cardForm);
 cardFormValidator.enableValidation();
 
 
-
-// class Section отвечает за отрисовку элементов на странице из массива initialCards
-// class Section {
-//   constructor({ items /* initialCards */, renderer/* function createCard */ }, selector /* cardsContainer */) {
-//     this._renderedItems = items;
-//     this._renderer = renderer;
-
-//     this._container = document.querySelector(selector);
-//   }
-
-//   renderItems() {
-//     this._renderedItems.forEach(item => this._renderer(item))
-//   }
-
-//   addItem(element) /* element — результат работы метода generateCard класса Card */ {
-//     this._container.prepend(element);
-//   }
-// };
-
+// создаем и добавляем карточки из initialCards
 const section = new Section(
   {
     items: initialCards,
@@ -176,50 +157,11 @@ section.renderItems();
 
 
 
-// class Popup {
-//   constructor()
-
-//   // popups.forEach((popup) => {
-//   //   popup.addEventListener('click', (evt) => {
-//   //     if (evt.target === popup) {
-//   //       closePopup(popup);
-//   //     }
-//   //   });
-//   // });
 
 
-//   // function closePopupEsc(evt) {
-//   //   if (evt.key === 'Escape') {
-//   //     const modal = document.querySelector('.popup_opened');
-//   //     closePopup(modal);
-//   //   }
-//   // }
 
 
-//   // function openPopup(modal) {
-//   //   modal.classList.add('popup_opened');
-//   //   document.addEventListener('keydown', closePopupEsc);
-//   // }
 
-
-//   // function closePopup(modal) {
-//   //   modal.classList.remove('popup_opened');
-//   //   document.removeEventListener('keydown', closePopupEsc);
-//   // }
-
-// };
-
-// class PopupWithImage extends Popup {
-//   constructor()
-
-//   // function openImage(data) {
-//   //   imagePopupImage.src = data.link;
-//   //   imagePopupImage.alt = data.name;
-//   //   imagePopupCaption.textContent = data.name;
-//   //   openPopup(imagePopup);
-//   // }
-
-// };
 
 // class PopupWithForm extends Popup {
 //   constructor()
