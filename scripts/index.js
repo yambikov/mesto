@@ -1,6 +1,7 @@
 import Card from "./Card.js";
 import initialCards from "./constants.js";
 import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
 
 // Переменные
 const profilePopup = document.querySelector('.popup_type_profile');
@@ -78,7 +79,7 @@ function handleSubmitCardForm(evt) {
     link: linkInput.value,
   };
 
-  renderCard(newCard);
+  renderCard(newCard); 
   closePopup(cardPopup);
   //evt.target.reset();
 }
@@ -97,9 +98,9 @@ function handleSubmitCardForm(evt) {
 // });
 
 //ушло в class Section
-// function renderCard(card) {
-//   cardsContainer.prepend(createCard(card))
-// }
+function renderCard(card) {
+  cardsContainer.prepend(createCard(card))
+}
 
 const formData = {
   formSelector: '.popup__content',
@@ -141,24 +142,23 @@ cardFormValidator.enableValidation();
 
 
 
-// class Section отвечает за отрисовку элементов на странице
-class Section {
-  constructor({ items /* initialCards */, renderer/* function createCard */ }, selector /* cardsContainer */) {
-    this._renderedItems = items;
-    this._renderer = renderer;
+// class Section отвечает за отрисовку элементов на странице из массива initialCards
+// class Section {
+//   constructor({ items /* initialCards */, renderer/* function createCard */ }, selector /* cardsContainer */) {
+//     this._renderedItems = items;
+//     this._renderer = renderer;
 
-    this._container = document.querySelector(selector);
-  }
+//     this._container = document.querySelector(selector);
+//   }
 
-  renderItems() {
-    this._renderedItems.forEach(item => this._renderer(item))
-  }
+//   renderItems() {
+//     this._renderedItems.forEach(item => this._renderer(item))
+//   }
 
-  addItem(element) /* element — результат работы метода generateCard класса Card */ {
-    this._container.prepend(element);
-  }
-
-};
+//   addItem(element) /* element — результат работы метода generateCard класса Card */ {
+//     this._container.prepend(element);
+//   }
+// };
 
 const section = new Section(
   {
