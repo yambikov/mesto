@@ -63,7 +63,7 @@ function handleSubmitProfileForm(evt) {
   closePopup(profilePopup);
 }
 
-// class PopupWithImage
+// ушло в class PopupWithImage
 function openImage(data) {
   imagePopupImage.src = data.link;
   imagePopupImage.alt = data.name;
@@ -163,8 +163,5 @@ section.renderItems();
 
 
 
-// class PopupWithForm extends Popup {
-//   constructor()
-//   // пока сложно
-// }
+
 
