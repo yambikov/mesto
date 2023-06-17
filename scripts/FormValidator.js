@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
 
   constructor(formData, formElement) {
 
@@ -92,6 +92,3 @@ class FormValidator {
   }
 
 }
-
-
-export default FormValidator
