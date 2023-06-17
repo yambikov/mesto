@@ -121,6 +121,7 @@ function closePopup(modal) {
   document.removeEventListener('keydown', closePopupEsc);
 }
 
+// ушло в class UserInfo
 function openProfilePopup() {
   openPopup(profilePopup);
   nameInput.value = profileName.textContent;
