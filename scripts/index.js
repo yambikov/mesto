@@ -74,14 +74,19 @@ const section = new Section(
 
 section.renderItems();
 
+const newCardPopup = new PopupWithForm ('.popup_type_card', (data) => {
+  section.addItem(data);
+  //newCardPopup.close();
+})
+
 
 
 // СТАРЫЙ КОД
 
 // // Слушатели
-// profileEditButton.addEventListener('click', openProfilePopup);
+//profileEditButton.addEventListener('click', /*openProfilePopup*/console.log('клик'));
 // profileCloseButton.addEventListener('click', () => closePopup(profilePopup));
-// cardAddButton.addEventListener('click', openCardPopup);
+cardAddButton.addEventListener('click', () => newCardPopup.open());
 // cardCloseButton.addEventListener('click', () => closePopup(cardPopup));
 // imageCloseButton.addEventListener('click', () => closePopup(imagePopup));
 
@@ -94,8 +99,8 @@ section.renderItems();
 //   });
 // });
 
-// profileForm.addEventListener('submit', handleSubmitProfileForm);
-// cardForm.addEventListener('submit', handleSubmitCardForm);
+//profileForm.addEventListener('submit', handleSubmitProfileForm);
+//cardForm.addEventListener('submit', handleSubmitCardForm);
 
 // // Функции
 
