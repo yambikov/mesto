@@ -7,7 +7,7 @@ import PopupWithForm from "./Popup.js";
 import Popup from "./Popup.js";
 import UserInfo from "./UserInfo.js";
 
-
+console.log("https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg")
 // Переменные
 const profilePopup = document.querySelector('.popup_type_profile');
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -74,10 +74,22 @@ const section = new Section(
 
 section.renderItems();
 
-const newCardPopup = new PopupWithForm ('.popup_type_card', (data) => {
-  section.addItem(data);
-  //newCardPopup.close();
-})
+const newCardPopup = new PopupWithForm('.popup_type_card', {
+  handleSubmitForm: (data) => {
+    section.addItem(data);
+    newCardPopup.close();
+  }
+});
+
+
+newCardPopup.setEventListeners();
+
+
+cardAddButton.addEventListener('click', () => {
+  newCardPopup.open();
+  cardFormValidator.resetValidation();
+});
+
 
 
 
@@ -86,7 +98,19 @@ const newCardPopup = new PopupWithForm ('.popup_type_card', (data) => {
 // // Слушатели
 //profileEditButton.addEventListener('click', /*openProfilePopup*/console.log('клик'));
 // profileCloseButton.addEventListener('click', () => closePopup(profilePopup));
-cardAddButton.addEventListener('click', () => newCardPopup.open());
+
+
+
+
+
+
+
+// //buttonAddCard.addEventListener("click", () => {
+//   popupAddNewCard.open();
+//   formAddCardValidator.resetErrorForOpenForm(); 
+
+
+
 // cardCloseButton.addEventListener('click', () => closePopup(cardPopup));
 // imageCloseButton.addEventListener('click', () => closePopup(imagePopup));
 

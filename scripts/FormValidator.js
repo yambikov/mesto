@@ -82,10 +82,11 @@ export default class FormValidator {
 
   // Сбрасываем ошибки и выключаем кнопку
   resetValidation() {
-    console.log("прошло")
     this._inputs.forEach((input) => {
       const errorMessage = this._formElement.querySelector(`.input-error-${input.name}`);
       this._hideInputError(input, errorMessage);
+
+      input.value = '';
     });
 
     this._disableButton();
