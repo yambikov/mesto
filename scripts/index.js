@@ -3,7 +3,7 @@ import initialCards from "./constants.js";
 import FormValidator from "./FormValidator.js";
 import PopupWithImage from "./PopupWithImage.js";
 import Section from "./Section.js";
-import PopupWithForm from "./Popup.js";
+import PopupWithForm from "./PopupWithForm.js";
 import Popup from "./Popup.js";
 import UserInfo from "./UserInfo.js";
 
@@ -34,11 +34,11 @@ const cardTemplate = document.getElementById('template');
 
 
 
-function createCard(data) {
-  const card = new Card(data, openImage, cardTemplate);
-  const cardElement = card.generateCard();
-  return cardElement;
-}
+// function createCard(data) {
+//   const card = new Card(data, openImage, cardTemplate);
+//   const cardElement = card.generateCard();
+//   return cardElement;
+// }
 
 
 
@@ -80,7 +80,6 @@ const newCardPopup = new PopupWithForm('.popup_type_card', {
     newCardPopup.close();
   }
 });
-
 
 newCardPopup.setEventListeners();
 
