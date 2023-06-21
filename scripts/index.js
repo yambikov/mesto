@@ -50,15 +50,9 @@ const formData = {
   inactiveButtonClass: 'popup__button_disabled',
 };
 
+const openImage = new PopupWithImage('.popup_type_image');
 
 
-const profileFormValidator = new FormValidator(formData, profileForm);
-profileFormValidator.enableValidation();
-
-const cardFormValidator = new FormValidator(formData, cardForm);
-cardFormValidator.enableValidation();
-
-const openImage = new PopupWithImage ('.popup_type_image');
 
 const section = new Section(
   {
@@ -66,7 +60,9 @@ const section = new Section(
     renderer: (data) => {
       const card = new Card(data, openImage.open, cardTemplate);
       const cardElement = card.generateCard();
-      section.addItem(cardElement);
+
+      return cardElement
+      //section.addItem(cardElement);
     }
   },
   '.elements',
@@ -74,18 +70,26 @@ const section = new Section(
 
 section.renderItems();
 
-const newCardPopup = new PopupWithForm('.popup_type_card', {
-  handleSubmitForm: (data) => {
-    section.addItem(data);
-    newCardPopup.close();
-  }
+
+// Валидация
+const profileFormValidator = new FormValidator(formData, profileForm);
+profileFormValidator.enableValidation();
+
+const cardFormValidator = new FormValidator(formData, cardForm);
+cardFormValidator.enableValidation();
+
+
+const popupAddCard = new PopupWithForm('.popup_type_card', (data) => {
+  section.addItem(data);
+  popupAddCard.close();
+
 });
 
-newCardPopup.setEventListeners();
+//popupAddCard.setEventListeners();
 
 
 cardAddButton.addEventListener('click', () => {
-  newCardPopup.open();
+  popupAddCard.open();
   cardFormValidator.resetValidation();
 });
 
