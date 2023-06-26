@@ -4,7 +4,6 @@ import FormValidator from "./FormValidator.js";
 import PopupWithImage from "./PopupWithImage.js";
 import Section from "./Section.js";
 import PopupWithForm from "./PopupWithForm.js";
-import Popup from "./Popup.js";
 import UserInfo from "./UserInfo.js";
 
 console.log("https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg")
@@ -71,6 +70,9 @@ const section = new Section(
 section.renderItems();
 
 
+
+
+
 // Валидация
 const profileFormValidator = new FormValidator(formData, profileForm);
 profileFormValidator.enableValidation();
@@ -79,11 +81,13 @@ const cardFormValidator = new FormValidator(formData, cardForm);
 cardFormValidator.enableValidation();
 
 
-const popupAddCard = new PopupWithForm('.popup_type_card', (data) => {
+const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (data) => {
   section.addItem(data);
   popupAddCard.close();
 
 });
+
+
 
 //popupAddCard.setEventListeners();
 
