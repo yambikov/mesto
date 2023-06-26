@@ -13,7 +13,7 @@ export default class FormValidator {
 
   }
 
-  // Вкл. ошибку добавляя класс input-error-title к span
+  // Вкл. ошибку добавляя класс input-error-name к span
   _showInputError(input, errorMessage) {
     input.classList.add(this._inputErrorClass);
     errorMessage.textContent = input.validationMessage;

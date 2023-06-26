@@ -2,7 +2,7 @@ export default class Card {
   constructor(data, handleCardClick /* openImage.open */, cardTemplate) {
     this._data = data;
     this._link = data.link;
-    this._name = data.title;
+    this._name = data.name;
     this._handleCardClick = handleCardClick;
     this.cardTemplate = cardTemplate;
   }
