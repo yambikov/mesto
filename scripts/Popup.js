@@ -1,8 +1,7 @@
 export default class Popup {
-  constructor(popupSelector /*'.popup'*/) {
+  constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
     this._closeButton = this._popup.querySelector('.popup__close-icon');
-    //this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   open() {
@@ -16,8 +15,13 @@ export default class Popup {
   }
 
   setEventListeners() {
+    // слушатель по ESC
     document.addEventListener('keydown', this._handleEscClose);
+    
+    // слушатель по крестику
     this._closeButton.addEventListener('click', this._handleCloseButtonClick);
+    
+    // слушатель по свободной области
     this._popup.addEventListener('click', this._handlePopupClick);
   }
 
@@ -27,16 +31,20 @@ export default class Popup {
     this._popup.removeEventListener('click', this._handlePopupClick);
   }
 
+  // Обработчик события 'click' по крестику
   _handleCloseButtonClick = () => {
     this.close();
   }
 
+  // Обработчик события 'click' по свободной области
   _handlePopupClick = (evt) => {
+    // Если целью события является сам попап, вызываем метод close()
     if (evt.target === this._popup) {
       this.close();
     }
   }
 
+  // Обработчик события 'keydown' по Esc
   _handleEscClose = (evt) => {
     if (evt.key === 'Escape') {
       this.close();
