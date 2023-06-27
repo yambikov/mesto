@@ -25,4 +25,34 @@ const initialCards = [
   }
 ];
 
-export default initialCards 
+const formData = {
+  formSelector: '.popup__content',
+  inputSelector: '.popup__item',
+  inputErrorClass: 'popup__input_type_error',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  nameInput: '[name="name"]',
+  jobInput: '[name="role"]',
+  profileTitle: '.profile__title',
+  profileSubtitle: '.profile__subtitle',
+};
+
+const profilePopup = document.querySelector('.popup_type_profile');
+const profileEditButton = document.querySelector('.profile__edit-button');
+const profileForm = profilePopup.querySelector('.popup__content');
+const cardPopup = document.querySelector('.popup_type_card');
+const cardAddButton = document.querySelector('.profile__add-button');
+const cardForm = cardPopup.querySelector('.popup__content');
+const cardTemplate = document.getElementById('template');
+
+export { 
+  initialCards, 
+  formData, 
+  profilePopup,
+  profileEditButton,
+  profileForm,
+  cardPopup,
+  cardAddButton,
+  cardForm,
+  cardTemplate,
+};

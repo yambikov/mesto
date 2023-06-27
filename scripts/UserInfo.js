@@ -1,7 +1,7 @@
 export default class UserInfo {
   constructor(formData) {
-    this._name = document.querySelector('.profile__title');
-    this._role = document.querySelector('.profile__subtitle');
+    this._name = document.querySelector(formData.profileTitle);
+    this._role = document.querySelector(formData.profileSubtitle);
   }
 
   getUserInfo() {
