@@ -99,11 +99,7 @@ const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (d
 profileEditButton.addEventListener('click', () => {
   popupEditProfile.open();
   profileFormValidator.resetValidation();
-  //popupEditProfile.setInputValues();
-  
-  popupEditProfile.setInputValues(userinfo.getUserInfo())
-  //console.log('сработал слушатель на кнопку')
-
+  popupEditProfile.setInputValues(userinfo.getUserInfo()) // заполняем инпуты при открытии
 });
 
 
@@ -111,7 +107,7 @@ profileEditButton.addEventListener('click', () => {
 
 // Редактирование профиля
 const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__content', (data) => {
-  console.log('сработал const popupEditProfile = new PopupWithForm')
+  console.log('сработал const popupEditProfile = new PopupWithForm');
   userinfo.setUserInfo(data);
   popupEditProfile.close();
 });

@@ -19,7 +19,6 @@ export default class PopupWithForm extends Popup {
 
   // Добавляет значения полей при открытии попапа редактирования профиля
   setInputValues(data) {
-    console.log('сработал setInputValues')
     this._inputs.forEach(input => {
       input.name === "name"
         ? input.value = data.name
