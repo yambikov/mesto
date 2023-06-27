@@ -1,17 +1,17 @@
 export default class UserInfo {
   constructor(formData) {
     this._name = document.querySelector(formData.nameInput);
-    console.log(this._name)
+    //console.log(this._name)
     this._role = document.querySelector(formData.jobInput);
-    console.log(this._role)
+    //console.log(this._role)
   }
 
   getUserInfo() {
     const name = document.querySelector('.profile__title').textContent;
-    console.log(name)
+    //console.log(name)
     const role = document.querySelector('.profile__subtitle').textContent;
-    console.log(role)
-    console.log({ name, role })
+    //console.log(role)
+    //console.log({ name, role })
     return { name, role };
   }
 

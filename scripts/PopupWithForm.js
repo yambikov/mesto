@@ -17,14 +17,14 @@ export default class PopupWithForm extends Popup {
     return this._formData;
   }
 
+  // Добавляет значения полей при открытии попапа редактирования профиля
   setInputValues(data) {
     console.log('сработал setInputValues')
-    console.log(data)
     this._inputs.forEach(input => {
-      data[input.name] = input.value;
-      console.log(data[input.name])
+      input.name === "name"
+        ? input.value = data.name
+        : input.value = data.role
     })
-   
   }
 
   // Устанавливает слушатели событий

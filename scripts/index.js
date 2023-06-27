@@ -102,7 +102,7 @@ profileEditButton.addEventListener('click', () => {
   //popupEditProfile.setInputValues();
   
   popupEditProfile.setInputValues(userinfo.getUserInfo())
-  console.log('сработал слушатель на кнопку')
+  //console.log('сработал слушатель на кнопку')
 
 });
 
