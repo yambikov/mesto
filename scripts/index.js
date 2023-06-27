@@ -47,7 +47,11 @@ const formData = {
   inputErrorClass: 'popup__input_type_error',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
+  nameInput: '[name="name"]',
+  jobInput: '[name="role"]',
 };
+
+
 
 // функция открытия попапа с картинкой
 const openImage = new PopupWithImage('.popup_type_image');
@@ -88,12 +92,42 @@ const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (d
   popupAddCard.close();
 });
 
+
+
+
+// слушатель на кнопку "редактировать профиль"
+profileEditButton.addEventListener('click', () => {
+  popupEditProfile.open();
+  profileFormValidator.resetValidation();
+  //popupEditProfile.setInputValues();
+  
+  popupEditProfile.setInputValues(userinfo.getUserInfo())
+  console.log('сработал слушатель на кнопку')
+
+});
+
+
+
+
 // Редактирование профиля
 const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__content', (data) => {
-  console.log('ghjikj')
-  new UserInfo.setUserInfo(data);
-  popupAddCard.close();
+  console.log('сработал const popupEditProfile = new PopupWithForm')
+  userinfo.setUserInfo(data);
+  popupEditProfile.close();
 });
+
+
+const userinfo = new UserInfo(formData);
+
+// const userinfo = new UserInfo({'[name="name"]', '[name="role"]'});
+
+
+
+
+
+
+
+
 
 
 // слушатель на кнопку "плюс"
@@ -102,11 +136,7 @@ cardAddButton.addEventListener('click', () => {
   cardFormValidator.resetValidation();
 });
 
-// слушатель на кнопку "редактировать профиль"
-profileEditButton.addEventListener('click', () => {
-  popupEditProfile.open();
-  profileFormValidator.resetValidation();
-});
+
 
 
 
