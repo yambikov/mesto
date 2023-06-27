@@ -49,10 +49,11 @@ const formData = {
   inactiveButtonClass: 'popup__button_disabled',
 };
 
+// функция открытия попапа с картинкой
 const openImage = new PopupWithImage('.popup_type_image');
 
 
-
+// функция создания карточек из массива
 const section = new Section(
   {
     items: initialCards,
@@ -61,41 +62,60 @@ const section = new Section(
       const cardElement = card.generateCard();
 
       return cardElement
-      //section.addItem(cardElement);
     }
   },
   '.elements',
 );
 
+// функция добавления карточек из массива
 section.renderItems();
 
 
 
 
 
-// Валидация
+// Валидация формы редактирования профиля и ее запуск
 const profileFormValidator = new FormValidator(formData, profileForm);
 profileFormValidator.enableValidation();
 
+// Валидация формы создания карточки и ее запуск
 const cardFormValidator = new FormValidator(formData, cardForm);
 cardFormValidator.enableValidation();
 
-
+// Создание карты через плюс
 const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (data) => {
   section.addItem(data);
   popupAddCard.close();
+});
 
+// Редактирование профиля
+const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__content', (data) => {
+  console.log('ghjikj')
+  new UserInfo.setUserInfo(data);
+  popupAddCard.close();
 });
 
 
-
-//popupAddCard.setEventListeners();
-
-
+// слушатель на кнопку "плюс"
 cardAddButton.addEventListener('click', () => {
   popupAddCard.open();
   cardFormValidator.resetValidation();
 });
+
+// слушатель на кнопку "редактировать профиль"
+profileEditButton.addEventListener('click', () => {
+  popupEditProfile.open();
+  profileFormValidator.resetValidation();
+});
+
+
+
+
+//const popupEditProfile = new UserInfo ({nameInput, jobInput }) {
+
+//  popupAddCard.close(); 
+
+
 
 
 
