@@ -20,10 +20,8 @@ export default class PopupWithForm extends Popup {
   // Добавляет значения полей при открытии попапа редактирования профиля
   setInputValues(data) {
     this._inputs.forEach(input => {
-      input.name === "name"
-        ? input.value = data.name
-        : input.value = data.role
-    })
+      input.value = data[input.name]
+    });
   }
 
   // Устанавливает слушатели событий
@@ -49,6 +47,6 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset();
-    this.removeEventListeners();
+    //this.removeEventListeners();
   }
 }
