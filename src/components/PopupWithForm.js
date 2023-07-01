@@ -34,8 +34,10 @@ export default class PopupWithForm extends Popup {
 
   // Удаляет слушатели событий
   removeEventListeners() {
+    super.removeEventListeners();
     this._form.removeEventListener('submit', this._handleFormSubmit);
   }
+
 
   // Обработчик события отправки формы
   _handleFormSubmit = (evt) => {
