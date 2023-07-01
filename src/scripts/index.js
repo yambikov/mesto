@@ -22,7 +22,6 @@ const userinfo = new UserInfo(formData);
 // функция открытия попапа с картинкой
 const openImage = new PopupWithImage('.popup_type_image');
 
-
 // функция создания карточек из массива
 const section = new Section(
   {
