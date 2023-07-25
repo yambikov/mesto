@@ -72,6 +72,15 @@ profileEditButton.addEventListener('click', () => {
   popupEditProfile.setInputValues(userinfo.getUserInfo()); // заполняем инпуты при открытии
 });
 
+fetch('https://nomoreparties.co/v1/cohort-72/users/me', {
+  headers: {
+    authorization: 'baec5030-e66a-4791-88f5-1a246d578a5b'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  }); 
 
 
 

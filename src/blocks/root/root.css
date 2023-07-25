@@ -10,5 +10,11 @@
   -moz-text-size-adjust: 100%;
 }
 
+.brd * {
+ outline: red solid 1px;
+}
+
+
+
 
 
