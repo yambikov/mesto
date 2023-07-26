@@ -2,7 +2,7 @@
   border: none;
   height: 19px;
   width: 22px;
- 
+
   background-color: #fff;
   background-image: url(../../../images/like.svg);
   background-repeat: no-repeat;
@@ -15,29 +15,3 @@
   cursor: pointer;
 }
 
-.element__like-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.element__like-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 21px;
-}
-.element__like-counter {
-}
-
-.element__container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* 
-element
-- element-container
---element-title
---element-like
-*/
