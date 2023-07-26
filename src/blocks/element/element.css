@@ -4,10 +4,11 @@
   background-color: #fff;
   color: #000;
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
+  /* flex-wrap: wrap; */
+  /* align-items: baseline; */
+  /* justify-content: space-between; */
   border-radius: 10px;
   overflow: hidden;
   position: relative;
+  flex-direction: column;
 }
