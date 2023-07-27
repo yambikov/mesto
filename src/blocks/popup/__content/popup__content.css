@@ -1,5 +1,5 @@
 .popup__content {
-  /* margin: 34px 36px 37px; */
+  margin: 34px 36px 37px;
   display: flex;
   flex-direction: column;
   padding: 0;

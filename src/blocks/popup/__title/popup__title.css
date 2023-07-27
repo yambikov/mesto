@@ -15,3 +15,13 @@
     padding-bottom: 44px;
   }
 }
+
+.popup__title_type_delete-card {
+  padding-bottom: 14px;
+}
+
+@media screen and (max-width: 656px) {
+  .popup__title_type_delete-card {
+    padding-bottom: 12px;
+  }
+}
