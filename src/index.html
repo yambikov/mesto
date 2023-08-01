@@ -21,8 +21,6 @@
       <section class="profile">
         <img class="profile__avatar" src="<%=require('./images/profile_avatar.png')%>" alt="Аватар">
         <button class="profile__avatar-update-button" type="button"></button>
-        
-        <!-- <img class="profile__avatar"> -->
         <div class="profile__info">
           <div class="profile__wrapper">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -33,7 +31,7 @@
         <button class="profile__add-button" type="button"></button>
       </section>
       <section class="elements">
-
+        <!-- место для карточек -->
       </section>
     </main>
     <footer class="footer">
@@ -41,8 +39,7 @@
     </footer>
   </div>
 
-  <!--Popup profile edit-->
-
+  <!-- Popup profile edit -->
   <div class="popup popup_type_profile">
     <div class="popup__container">
       <button class="popup__close-icon" type="button"></button>
@@ -57,8 +54,7 @@
     </div>
   </div>
 
-  <!--Card add popup-->
-
+  <!-- Popup add card -->
   <div class="popup popup_type_card">
     <div class="popup__container">
       <button class="popup__close-icon" type="button"></button>
@@ -75,8 +71,7 @@
     </div>
   </div>
 
-  <!-- Image Popup -->
-
+  <!-- Popup with image -->
   <div class="popup popup_type_image">
     <div class="popup__image-container">
       <button class="popup__close-icon" type="button"></button>
@@ -86,13 +81,12 @@
   </div>
 
 
-  <!--Popup delete card confirm-->
-
+  <!-- Popup delete card -->
   <div class="popup popup_type_delete-card">
   <!-- <div class="popup popup_type_delete-card popup_opened"> -->
     <div class="popup__container">
       <button class="popup__close-icon" type="button"></button>
-      <form class="popup__content" name="profile-edit" novalidate>
+      <form class="popup__content" name="delete-card" novalidate>
         <h2 class="popup__title popup__title_type_delete-card">Вы уверены?</h2>
 
         <input class="popup__button" type="submit" value="Да">
@@ -100,8 +94,22 @@
     </div>
   </div>
 
-  <!--Card template-->
+  <!-- Popup edit avatar -->
+  <!-- <div class="popup popup_type_avatar popup_opened"> -->
+  <div class="popup popup_type_avatar">
+    <div class="popup__container">
+      <button class="popup__close-icon" type="button"></button>
+      <form class="popup__content" name="avatar-edit" novalidate>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <input class="popup__item" name="link" type="url" value placeholder="Действующая ссылка" required
+          autocomplete="off">
+        <span class="input-error-link error"></span>
+        <input class="popup__button" type="submit" value="Сохранить">
+      </form>
+    </div>
+  </div>
 
+  <!-- Card template -->
   <template id="template">
     <div class="element">
       <img class="element__image">
@@ -114,9 +122,5 @@
     </div>
   </template>
 
-
 </body>
-
-
-
 </html>
