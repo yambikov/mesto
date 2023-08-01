@@ -6,13 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <!--
+
   <link href="./pages/index.css" rel="stylesheet">
-  <script src="./scripts/index.js" type="module"></script> 
-  <script src="./scripts/FormValidator.js" type="module"></script>
-  <script src="./scripts/constants.js" type="module"></script>
-  
-  Добавил defer чтобы не ставить скрипт в конец-->
+  <script src="./scripts/index.js" type="module" defer></script> 
+
 </head>
 
 <body class="root brd">
@@ -23,6 +20,7 @@
     <main>
       <section class="profile">
         <img class="profile__avatar" src="<%=require('./images/profile_avatar.png')%>" alt="Аватар">
+        <button class="profile__avatar-update-button" type="button"></button>
         
         <!-- <img class="profile__avatar"> -->
         <div class="profile__info">

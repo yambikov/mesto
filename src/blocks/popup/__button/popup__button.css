@@ -9,18 +9,18 @@
   font-size: 18px;
   line-height: 22px;
   transition: opacity 0.2s ease;
+}
+
+.popup__button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 656px) {
+  .popup__button {
+    font-size: 14px;
+    line-height: 17px;
+    height: 46px;
+    /* margin-top: 44px; */
   }
-  
-  .popup__button:hover {
-    opacity: 0.8;
-    cursor: pointer;
-  }
-  
-  @media screen and (max-width: 656px) {
-    .popup__button {
-      font-size: 14px;
-      line-height: 17px;
-      height: 46px;
-    margin-top: 44px;
-    }
-  }
+}
