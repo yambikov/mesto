@@ -38,6 +38,9 @@ const section = new Section(
 // функция добавления карточек из массива
 section.renderItems();
 
+
+
+
 // Валидация формы редактирования профиля и ее запуск
 const profileFormValidator = new FormValidator(formData, profileForm);
 profileFormValidator.enableValidation();
@@ -71,27 +74,20 @@ profileEditButton.addEventListener('click', () => {
   popupEditProfile.setInputValues(userinfo.getUserInfo()); // заполняем инпуты при открытии
 });
 
-// fetch('https://nomoreparties.co/v1/cohort-72/users/me', {
-//   headers: {
-//     authorization: 'baec5030-e66a-4791-88f5-1a246d578a5b'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   });
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-72/',
+  headers: {
+      authorization: 'baec5030-e66a-4791-88f5-1a246d578a5b',
+      'Content-Type': 'application/json'
+  }
+});
 
-// function getInitialCards() {
-//   return fetch('https://mesto.nomoreparties.co/v1/cohort-72/cards', {
-//     headers: {
-//       authorization: 'baec5030-e66a-4791-88f5-1a246d578a5b'
-//     }
-//   })
-//     .then(res => {
-//       if (res.ok) {
-//         return console.log(res.json());
-//       }
-//     });
-// }
 
-// getInitialCards()
+    
+
+
+
+
+
+
+
