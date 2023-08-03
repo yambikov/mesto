@@ -102,4 +102,6 @@ api.getUserInfo()
     console.log(error)
   })
 
+api.editUserInfo()
+
 

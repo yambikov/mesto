@@ -6,8 +6,8 @@ export default class Api {
 
   getInitialCards() {
     return fetch(`${this.baseUrl}cards`, {
-      headers: this.headers,
-      method: 'GET'
+      method: 'GET',
+      headers: this.headers
     })
       .then(res => {
         if (res.ok) {
@@ -19,8 +19,9 @@ export default class Api {
 
   getUserInfo() {
     return fetch(`${this.baseUrl}users/me`, {
-      headers: this.headers,
-      method: 'GET'
+      method: 'GET',
+      headers: this.headers
+
     })
       .then(res => {
         if (res.ok) {
@@ -29,4 +30,25 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
       });
   }
+
+  editUserInfo() {
+    return fetch(`${this.baseUrl}users/me`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        name: 'Marie Skłodowska Curie',
+        about: 'Physicist and Chemist'
+      })
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      return Promise.reject(`Ошибка: ${response.status}`);
+    })
+    .then(post => console.log(post));
+  }
+  
+
+
 }
