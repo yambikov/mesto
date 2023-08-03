@@ -15,6 +15,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from '../components/Api';
+import { error } from 'console';
 
 // функция для редактирования профиля
 const userinfo = new UserInfo(formData);
@@ -77,13 +78,47 @@ profileEditButton.addEventListener('click', () => {
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-72/',
   headers: {
-      authorization: 'baec5030-e66a-4791-88f5-1a246d578a5b',
-      'Content-Type': 'application/json'
+    authorization: 'baec5030-e66a-4791-88f5-1a246d578a5b',
+    'Content-Type': 'application/json'
   }
 });
 
 
-    
+
+// api.getInitialCards()
+//   .then(res => console.log(res))
+//   .catch(error => console.log(error))
+
+// // Создаем новый промис
+// const promise = new Promise((resolve, reject) => {
+//   // Имитируем асинхронную задержку в 1 секунду
+//   setTimeout(() => {
+//     // Генерируем случайное число от 0 до 9
+//     const n = Math.floor(Math.random() * 10);
+//     // Если число n больше или равно 5, то разрешаем промис с числом n
+//     if (n >= 5) { 
+//       resolve(n);
+//     } else {
+//       // Если число n меньше 5, то отклоняем промис с ошибкой
+//       reject(new Error('<5'));
+//     }
+//   }, 1000);
+// });
+
+
+// // Обрабатываем разрешение промиса через метод then()
+// promise
+//   .then((result) => {
+//     console.log('Resolved with:', result);
+//   })
+//   // Обрабатываем отклонение промиса через метод catch()
+//   .catch((error) => {
+//     console.error('Rejected with error:', error.message);
+//   })
+//   .finally(() => { // <-- Метод finally должен быть без аргументов
+//     console.log('Finally');
+//   });
+
 
 
 

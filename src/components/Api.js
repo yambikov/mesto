@@ -1,20 +1,18 @@
 export default class Api {
-    constructor(options) {
-        this.baseUrl = options.baseUrl;
-        this.headers = options.headers;
-        this.token = options.headers.authorization
-    }
+  constructor(options) {
+    this.baseUrl = options.baseUrl;
+    this.headers = options.headers;
+  }
 
-
-
-    getInitialCards() {
-        return fetch(this.baseUrl+'cards', {
-            headers: {
-              authorization: this.token
-            }
-          })
-            .then(res => res.json());
-    }
-
-    // другие методы работы с API
+  getInitialCards() {
+    return fetch(`${this.baseUrl}card`, {
+      headers: this.headers
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject('Произошла ошибка')
+      });
+  }
 }
