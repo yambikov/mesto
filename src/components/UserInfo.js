@@ -2,6 +2,7 @@ export default class UserInfo {
   constructor(formData) {
     this._name = document.querySelector(formData.profileTitle);
     this._role = document.querySelector(formData.profileSubtitle);
+    this._avatar = document.querySelector(formData.avatar);
   }
 
   getUserInfo() {
@@ -12,6 +13,7 @@ export default class UserInfo {
 
   setUserInfo(data) {
     this._name.textContent = data.name;
-    this._role.textContent = data.role;
+    this._role.textContent = data.about; // ранее data.role
+    this._avatar.src = data.avatar
   }
 }

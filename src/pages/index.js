@@ -15,32 +15,25 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from '../components/Api';
-import { error } from 'console';
+import { error, log } from 'console';
+import { data } from 'autoprefixer';
 
-// функция для редактирования профиля
-const userinfo = new UserInfo(formData);
+
 
 // функция открытия попапа с картинкой
 const openImage = new PopupWithImage('.popup_type_image');
 
-// функция создания карточек из массива
-const section = new Section(
-  {
-    items: initialCards,
-    renderer: (data) => {
-      const card = new Card(data, openImage.open, cardTemplate);
-      const cardElement = card.generateCard();
-      return cardElement;
-    }
-  },
-  '.elements'
-);
+// конфиг для API
+const apiConfig = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-72/',
+  headers: {
+    authorization: 'baec5030-e66a-4791-88f5-1a246d578a5b',
+    'Content-Type': 'application/json'
+  }
+}
 
-// функция добавления карточек из массива
-section.renderItems();
-
-
-
+// функция для редактирования профиля
+const userinfo = new UserInfo(formData);
 
 // Валидация формы редактирования профиля и ее запуск
 const profileFormValidator = new FormValidator(formData, profileForm);
@@ -75,54 +68,38 @@ profileEditButton.addEventListener('click', () => {
   popupEditProfile.setInputValues(userinfo.getUserInfo()); // заполняем инпуты при открытии
 });
 
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-72/',
-  headers: {
-    authorization: 'baec5030-e66a-4791-88f5-1a246d578a5b',
-    'Content-Type': 'application/json'
-  }
-});
+// Создание экземпляра класса Api с переданным конфигурационным объектом 'apiConfig'
+const api = new Api(apiConfig);
 
-
-
+// Получение данных с API и рендеринг карточек на их основе
 api.getInitialCards()
-  .then(res => console.log(res))
-  .catch(error => console.log(error))
+  .then((cardsData) => {
+    // функция создания карточек из массива
+    const section = new Section(
+      {
+        items: cardsData, // В items добавляю данные, полученные из API
+        renderer: (data) => {
+          const card = new Card(data, openImage.open, cardTemplate);
+          const cardElement = card.generateCard();
+          return cardElement;
+        }
+      },
+      '.elements'
+    );
+    // функция добавления карточек из массива
+    section.renderItems();
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
-// // Создаем новый промис
-// const promise = new Promise((resolve, reject) => {
-//   // Имитируем асинхронную задержку в 1 секунду
-//   setTimeout(() => {
-//     // Генерируем случайное число от 0 до 9
-//     const n = Math.floor(Math.random() * 10);
-//     // Если число n больше или равно 5, то разрешаем промис с числом n
-//     if (n >= 5) { 
-//       resolve(n);
-//     } else {
-//       // Если число n меньше 5, то отклоняем промис с ошибкой
-//       reject(new Error('<5'));
-//     }
-//   }, 1000);
-// });
-
-
-// // Обрабатываем разрешение промиса через метод then()
-// promise
-//   .then((result) => {
-//     console.log('Resolved with:', result);
-//   })
-//   // Обрабатываем отклонение промиса через метод catch()
-//   .catch((error) => {
-//     console.error('Rejected with error:', error.message);
-//   })
-//   .finally(() => { // <-- Метод finally должен быть без аргументов
-//     console.log('Finally');
-//   });
-
-
-
-
-
-
+// получение имени и должности с сервера и их публикация
+api.getUserInfo()
+  .then(data => {
+    userinfo.setUserInfo(data)
+  })
+  .catch((error) => {
+    console.log(error)
+  })
 
 

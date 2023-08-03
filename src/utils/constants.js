@@ -35,6 +35,7 @@ const formData = {
   jobInput: '[name="role"]',
   profileTitle: '.profile__title',
   profileSubtitle: '.profile__subtitle',
+  avatar: '.profile__avatar'
 };
 
 const profilePopup = document.querySelector('.popup_type_profile');
