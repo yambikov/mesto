@@ -85,9 +85,9 @@ const api = new Api({
 
 
 
-// api.getInitialCards()
-//   .then(res => console.log(res))
-//   .catch(error => console.log(error))
+api.getInitialCards()
+  .then(res => console.log(res))
+  .catch(error => console.log(error))
 
 // // Создаем новый промис
 // const promise = new Promise((resolve, reject) => {

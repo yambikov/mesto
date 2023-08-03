@@ -28,6 +28,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "console-browserify": "^1.2.0",
     "core-js": "^3.31.0"
   }
 }

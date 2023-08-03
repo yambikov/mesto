@@ -49,11 +49,17 @@ module.exports = {
     ]
   },
 
+  resolve: {
+    fallback: {
+      "console": false,
+    },
+  },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html' // путь к файлу index.html
+      template: './src/index.html',
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
-  ]
-}
+  ],
+};
+
