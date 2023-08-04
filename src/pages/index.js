@@ -94,7 +94,7 @@ api.getInitialCards()
   });
 
 // получение имени и должности с сервера и их публикация
-api.getUserInfo()
+api.getUserInfoApi()
   .then(data => {
     userinfo.setUserInfo(data)
   })
@@ -102,6 +102,5 @@ api.getUserInfo()
     console.log(error)
   })
 
-api.editUserInfo()
 
-
+// Promise.all ([api.getUserInfoApi(), api.getInitialCards()])

@@ -17,7 +17,7 @@ export default class Api {
       });
   }
 
-  getUserInfo() {
+  getUserInfoApi() {
     return fetch(`${this.baseUrl}users/me`, {
       method: 'GET',
       headers: this.headers
@@ -31,7 +31,7 @@ export default class Api {
       });
   }
 
-  editUserInfo() {
+  editUserInfoApi() {
     return fetch(`${this.baseUrl}users/me`, {
       method: 'PATCH',
       headers: this.headers,
@@ -46,7 +46,7 @@ export default class Api {
       }
       return Promise.reject(`Ошибка: ${response.status}`);
     })
-    .then(post => console.log(post));
+    // .then(post => console.log(post));
   }
   
 
