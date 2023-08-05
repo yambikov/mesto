@@ -30,24 +30,14 @@ export default class Api {
 
   // Получить информацию о текущем пользователе
   getUserInfoApi() {
-    return this._makeRequest('users/me', 'GET'); // возвращает объект {name: 'Marie Skłodowska Curie', about: 'Physicist and Chemist', avatar: 'https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg', _id: 'bba7060593119ffd8fc1af1f', cohort: 'cohort-72'}
+    return this._makeRequest('users/me', 'GET'); // возвращает объект с именем, должностью и проч.
   }
 
   // Изменить информацию о текущем пользователе
-  // editUserInfoApi() {
-  //   return this._makeRequest('users/me', 'PATCH', {
-  //     name: 'Jack London',
-  //     about: 'writer'
-  //   });
-
   editUserInfoApi(data) {
     return this._makeRequest('users/me', 'PATCH', data);
-
   }
 }
-
-
-//////////////
 
 
 

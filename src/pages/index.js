@@ -1,7 +1,6 @@
 import '../pages/index.css';
 import Card from "../components/Card.js";
 import {
-  initialCards,
   formData,
   profileEditButton,
   profileForm,
@@ -15,23 +14,21 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from '../components/Api';
-import { error, log } from 'console';
-import { data } from 'autoprefixer';
 
 
-// конфиг для API
+// Конфигурация для API
 const apiConfig = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-72/',
   headers: {
     authorization: 'baec5030-e66a-4791-88f5-1a246d578a5b',
     'Content-Type': 'application/json'
   }
-}
+};
 
-// функция открытия попапа с картинкой
+// Функция открытия попапа с картинкой
 const openImage = new PopupWithImage('.popup_type_image');
 
-// функция для редактирования профиля
+// Функция для редактирования профиля
 const userinfo = new UserInfo(formData);
 
 // Валидация формы редактирования профиля и ее запуск
@@ -42,69 +39,67 @@ profileFormValidator.enableValidation();
 const cardFormValidator = new FormValidator(formData, cardForm);
 cardFormValidator.enableValidation();
 
-// Создание карты через плюс
+// Создание попапа для добавления карточки
 const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (data) => {
   section.addItem(data);
   popupAddCard.close();
 });
 
-// Редактирование профиля
+// Создание попапа для редактирования профиля
 const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__content', (data) => {
   userinfo.setUserInfo(data);
   popupEditProfile.close();
 });
 
-// слушатель на кнопку "плюс"
+// Слушатель на кнопку "Добавить карточку"
 cardAddButton.addEventListener('click', () => {
   popupAddCard.open();
   cardFormValidator.resetValidation();
 });
 
-// слушатель на кнопку "редактировать профиль"
+// Слушатель на кнопку "Редактировать профиль"
 profileEditButton.addEventListener('click', () => {
   popupEditProfile.open();
   profileFormValidator.resetValidation();
-  popupEditProfile.setInputValues(userinfo.getUserInfo()); // заполняем инпуты при открытии
+  popupEditProfile.setInputValues(userinfo.getUserInfo()); // Заполняем инпуты при открытии попапа
 });
 
 // Создание экземпляра класса Api с переданным конфигурационным объектом 'apiConfig'
 const api = new Api(apiConfig);
 
-
+// Функция, создающая карточку на основе переданных данных
 function createCard(data) {
   const card = new Card(data, openImage.open, cardTemplate);
   const cardElement = card.generateCard();
   return cardElement;
 };
 
-
+// Функция для рендеринга начальных карточек
 function renderInitialCards(cardsData) {
-  // функция создания карточек из массива
+  // Создание секции для карточек
   const section = new Section({
     items: cardsData, // В items добавляю данные, полученные из API
-    renderer: createCard
+    renderer: createCard // Используем функцию createCard для генерации карточек
   }, '.elements');
 
-  // функция добавления карточек из массива
+  // Функция добавления карточек из массива
   section.renderItems();
 }
 
-
-api.getInitialCards()
-  .then(renderInitialCards);
-
-// получение имени и должности с сервера и их публикация
-api.getUserInfoApi()
-  .then(data => {
-    userinfo.setUserInfo(data)
-  });
-
+// Редактирование информации о пользователе
 api.editUserInfoApi({
-  name: 'Anton Chehov',
-  about: 'Writer'
-})
+  name: 'Борис Стругацкий',
+  about: 'Писатель'
+});
 
-
-// Promise.all ([api.getUserInfoApi(), api.getInitialCards()])
-
+// Promise.all для параллельного выполнения запросов
+Promise.all([api.getUserInfoApi(), api.getInitialCards()])
+  .then(([userData, cardsData]) => {
+    renderInitialCards(cardsData);
+    userinfo.setUserInfo(userData);
+  })
+  .catch((error) => {
+    // Обработка ошибок, если хотя бы один запрос завершился с ошибкой
+    console.error(error);
+  });
 
