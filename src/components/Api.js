@@ -1,54 +1,53 @@
+import { data } from "autoprefixer";
+
 export default class Api {
   constructor(options) {
     this.baseUrl = options.baseUrl;
     this.headers = options.headers;
+    this.data = options.data;
   }
 
-  getInitialCards() {
-    return fetch(`${this.baseUrl}cards`, {
-      method: 'GET',
-      headers: this.headers
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
-  }
-
-  getUserInfoApi() {
-    return fetch(`${this.baseUrl}users/me`, {
-      method: 'GET',
-      headers: this.headers
-
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      });
-  }
-
-  editUserInfoApi() {
-    return fetch(`${this.baseUrl}users/me`, {
-      method: 'PATCH',
+  // Вспомогательный метод для выполнения fetch-запросов и обработки ответа от сервера
+  _makeRequest(url, method, data) {
+    const requestOptions = {
+      method,
       headers: this.headers,
-      body: JSON.stringify({
-        name: 'Marie Skłodowska Curie',
-        about: 'Physicist and Chemist'
-      })
-    })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
+      ...(data ? { body: JSON.stringify(data) } : {})
+    };
+
+    return fetch(`${this.baseUrl}${url}`, requestOptions).then((res) => {
+      if (res.ok) {
+        return res.json();
       }
-      return Promise.reject(`Ошибка: ${response.status}`);
-    })
-    // .then(post => console.log(post));
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
-  
 
+  // Получить список начальных карточек
+  getInitialCards() {
+    return this._makeRequest('cards', 'GET'); // возвращает массив карточек
+  }
 
+  // Получить информацию о текущем пользователе
+  getUserInfoApi() {
+    return this._makeRequest('users/me', 'GET'); // возвращает объект {name: 'Marie Skłodowska Curie', about: 'Physicist and Chemist', avatar: 'https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg', _id: 'bba7060593119ffd8fc1af1f', cohort: 'cohort-72'}
+  }
+
+  // Изменить информацию о текущем пользователе
+  // editUserInfoApi() {
+  //   return this._makeRequest('users/me', 'PATCH', {
+  //     name: 'Jack London',
+  //     about: 'writer'
+  //   });
+
+  editUserInfoApi(data) {
+    return this._makeRequest('users/me', 'PATCH', data);
+
+  }
 }
+
+
+//////////////
+
+
+

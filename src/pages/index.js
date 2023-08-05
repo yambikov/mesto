@@ -19,10 +19,6 @@ import { error, log } from 'console';
 import { data } from 'autoprefixer';
 
 
-
-// функция открытия попапа с картинкой
-const openImage = new PopupWithImage('.popup_type_image');
-
 // конфиг для API
 const apiConfig = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-72/',
@@ -31,6 +27,9 @@ const apiConfig = {
     'Content-Type': 'application/json'
   }
 }
+
+// функция открытия попапа с картинкой
+const openImage = new PopupWithImage('.popup_type_image');
 
 // функция для редактирования профиля
 const userinfo = new UserInfo(formData);
@@ -71,36 +70,41 @@ profileEditButton.addEventListener('click', () => {
 // Создание экземпляра класса Api с переданным конфигурационным объектом 'apiConfig'
 const api = new Api(apiConfig);
 
-// Получение данных с API и рендеринг карточек на их основе
+
+function createCard(data) {
+  const card = new Card(data, openImage.open, cardTemplate);
+  const cardElement = card.generateCard();
+  return cardElement;
+};
+
+
+function renderInitialCards(cardsData) {
+  // функция создания карточек из массива
+  const section = new Section({
+    items: cardsData, // В items добавляю данные, полученные из API
+    renderer: createCard
+  }, '.elements');
+
+  // функция добавления карточек из массива
+  section.renderItems();
+}
+
+
 api.getInitialCards()
-  .then((cardsData) => {
-    // функция создания карточек из массива
-    const section = new Section(
-      {
-        items: cardsData, // В items добавляю данные, полученные из API
-        renderer: (data) => {
-          const card = new Card(data, openImage.open, cardTemplate);
-          const cardElement = card.generateCard();
-          return cardElement;
-        }
-      },
-      '.elements'
-    );
-    // функция добавления карточек из массива
-    section.renderItems();
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+  .then(renderInitialCards);
 
 // получение имени и должности с сервера и их публикация
 api.getUserInfoApi()
   .then(data => {
     userinfo.setUserInfo(data)
-  })
-  .catch((error) => {
-    console.log(error)
-  })
+  });
+
+api.editUserInfoApi({
+  name: 'Anton Chehov',
+  about: 'Writer'
+})
 
 
 // Promise.all ([api.getUserInfoApi(), api.getInitialCards()])
+
+
