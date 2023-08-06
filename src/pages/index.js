@@ -106,16 +106,5 @@ Promise.all([api.getUserInfoApi(), api.getInitialCards()])
     userinfo.setUserInfo(userData);
   })
   .catch((error) => {
-    // Обработка ошибок, если хотя бы один запрос завершился с ошибкой
     console.error(error);
   });
-
-// api.postCard({
-//   name: "Оренбуржье",
-//   link: "https://s0.showslide.ru/s_slide/5cfe/7e823f37-1279-4359-aaeb-54de53d5da05.jpeg"
-// })
-
-// api.postCard({
-//   name: "Урал",
-//   link: "https://oir.mobi/uploads/posts/2021-06/thumbs/1623688139_32-oir_mobi-p-gornie-ozera-urala-priroda-krasivo-foto-33.jpg"
-// })

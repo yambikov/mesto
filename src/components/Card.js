@@ -3,6 +3,7 @@ export default class Card {
     this._data = data;
     this._link = data.link;
     this._name = data.name;
+    this._like = data.likes.length;
     this._handleCardClick = handleCardClick; // Функция обработчик клика по карточке
     this.cardTemplate = cardTemplate; // Шаблон разметки карточки
   }
@@ -57,12 +58,14 @@ export default class Card {
     this._cardImage = this._element.querySelector('.element__image');
     this._buttonRemove = this._element.querySelector('.element__remove');
     this._cardTitle = this._element.querySelector('.element__title');
+    this._likeContainer = this._element.querySelector('.element__like-counter')
 
     this._setEventListeners();
 
     this._cardImage.src = this._link; // Устанавливаем изображение карточки
     this._cardTitle.textContent = this._name; // Устанавливаем заголовок карточки
     this._cardImage.alt = this._name; // Устанавливаем альтернативный текст для изображения
+    this._likeContainer.textContent = this._like
 
     return this._element;
   }
