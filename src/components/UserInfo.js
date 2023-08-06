@@ -7,8 +7,8 @@ export default class UserInfo {
 
   getUserInfo() {
     const name = this._name.textContent;
-    const role = this._role.textContent;
-    return { name, role };
+    const about = this._role.textContent;
+    return { name, about };
   }
 
   setUserInfo(data) {

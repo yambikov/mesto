@@ -47,9 +47,19 @@ const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (d
 
 // Создание попапа для редактирования профиля
 const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__content', (data) => {
-  userinfo.setUserInfo(data);
-  popupEditProfile.close();
+  console.log(data);
+  api.editUserInfoApi(data)
+    .then(userData => {
+      userinfo.setUserInfo(userData);
+      console.log(userData);
+      popupEditProfile.close();
+    })
+    .catch((error) => {
+      console.error('Ошибка при редактировании профиля:', error);
+    });
 });
+
+
 
 // Слушатель на кнопку "Добавить карточку"
 cardAddButton.addEventListener('click', () => {
@@ -87,10 +97,10 @@ function renderInitialCards(cardsData) {
 }
 
 // Редактирование информации о пользователе
-api.editUserInfoApi({
-  name: 'Борис Стругацкий',
-  about: 'Писатель'
-});
+// api.editUserInfoApi({
+//   name: 'Борис Стругацкий',
+//   about: 'Писатель'
+// });
 
 // Promise.all для параллельного выполнения запросов
 Promise.all([api.getUserInfoApi(), api.getInitialCards()])

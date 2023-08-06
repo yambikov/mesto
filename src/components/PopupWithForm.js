@@ -41,6 +41,7 @@ export default class PopupWithForm extends Popup {
   _handleFormSubmit = (evt) => {
     evt.preventDefault();
     this._handleSubmitForm(this._getInputValues());
+    console.log('click');
   }
 
   // Закрывает попап и сбрасывает значения полей формы
