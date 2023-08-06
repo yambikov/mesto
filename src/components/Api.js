@@ -15,7 +15,8 @@ export default class Api {
       ...(data ? { body: JSON.stringify(data) } : {})
     };
 
-    return fetch(`${this.baseUrl}${url}`, requestOptions).then((res) => {
+    return fetch(`${this.baseUrl}${url}`, requestOptions)
+    .then((res) => {
       if (res.ok) {
         return res.json();
       }
@@ -34,8 +35,12 @@ export default class Api {
   }
 
   // Изменить информацию о текущем пользователе
-  editUserInfoApi(data) {
+  patchUserInfo(data) {
     return this._makeRequest('users/me', 'PATCH', data);
+  }
+
+  postCard(data) {
+    return this._makeRequest('cards', 'POST', data);
   }
 }
 
