@@ -7,7 +7,6 @@ import {
   cardAddButton,
   cardForm,
   cardTemplate,
-  initialCards
 } from "../utils/constants.js"
 import FormValidator from "../components/FormValidator.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -41,8 +40,6 @@ profileFormValidator.enableValidation();
 const cardFormValidator = new FormValidator(formData, cardForm);
 cardFormValidator.enableValidation();
 
-
-
 // Создание попапа для редактирования профиля
 const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__content', (data) => {
   console.log(data); // Выводим данные формы в консоль для отладки
@@ -57,8 +54,6 @@ const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__conte
       console.error('Ошибка при редактировании профиля:', error); // Выводим ошибку в консоль при возникновении ошибки
     });
 });
-
-
 
 // Слушатель на кнопку "Добавить карточку"
 cardAddButton.addEventListener('click', () => {
@@ -76,15 +71,8 @@ profileEditButton.addEventListener('click', () => {
 // Создание экземпляра класса Api с переданным конфигурационным объектом 'apiConfig'
 const api = new Api(apiConfig);
 
-// Функция, создающая карточку на основе переданных данных
-// function createCard(data) {
-//   const card = new Card(data, openImage.open, cardTemplate);
-//   const cardElement = card.generateCard();
-//   return cardElement;
-// };
 
-
-// функция создания карточек
+// Созддание карточки и добавление ее в разметку
 const section = new Section(
   {
     // items: initialCards,
@@ -97,33 +85,24 @@ const section = new Section(
   '.elements',
 );
 
-// section.renderItems();
-
-// // Функция для рендеринга начальных карточек
-// function renderInitialCards(cardsData) {
-//   // Создание секции для карточек
-//   const section = new Section({
-//     items: cardsData, // В items добавляю данные, полученные из API
-//     renderer: createCard // Используем функцию createCard для генерации карточек
-//   }, '.elements');
-
-//   // Функция добавления карточек из массива
-  
-// }
-
 // Создание попапа для добавления карточки
 const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (data) => {
   console.log(data);
-  section.addItem(data);
-  popupAddCard.close();
+  api.postCard(data)
+    .then((cardData) => {
+      section.addItem(cardData);
+      popupAddCard.close();
+    })
+    .catch((error) => {
+      console.error(error);
+    })
 });
-
+ 
 
 // Promise.all для параллельного выполнения запросов
 Promise.all([api.getUserInfoApi(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
-    console.log([userData, cardsData]);
-    section.renderItems(cardsData);
+    section.renderItems(cardsData.reverse());
     userinfo.setUserInfo(userData);
   })
   .catch((error) => {
@@ -134,4 +113,9 @@ Promise.all([api.getUserInfoApi(), api.getInitialCards()])
 // api.postCard({
 //   name: "Оренбуржье",
 //   link: "https://s0.showslide.ru/s_slide/5cfe/7e823f37-1279-4359-aaeb-54de53d5da05.jpeg"
+// })
+
+// api.postCard({
+//   name: "Урал",
+//   link: "https://oir.mobi/uploads/posts/2021-06/thumbs/1623688139_32-oir_mobi-p-gornie-ozera-urala-priroda-krasivo-foto-33.jpg"
 // })
