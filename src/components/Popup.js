@@ -1,10 +1,14 @@
 export default class Popup {
   constructor(popupSelector) {
+    this._popupSelector = popupSelector
     this._popup = document.querySelector(popupSelector);
+    this._popup2 = document.querySelector('.popup_type_delete-card');
+    this._popup3 = '123';
     this._closeButton = this._popup.querySelector('.popup__close-icon');
   }
 
   open() {
+    console.log(this._popup3);
     this._popup.classList.add('popup_opened');
     this.setEventListeners();
   }

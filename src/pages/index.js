@@ -29,6 +29,11 @@ const apiConfig = {
 // Функция открытия попапа с картинкой
 const openImage = new PopupWithImage('.popup_type_image');
 
+const openConfirmPopup = new PopupWithForm('.popup_type_delete-card', '.popup__content');
+
+// openConfirmPopup.open()
+
+
 // Функция для редактирования профиля
 const userinfo = new UserInfo(formData);
 
@@ -42,8 +47,6 @@ cardFormValidator.enableValidation();
 
 // Создание попапа для редактирования профиля
 const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__content', (data) => {
-  console.log(data); // Выводим данные формы в консоль для отладки
-
   // Отправляем данные на сервер для обновления профиля
   api.patchUserInfo(data)
     .then(userData => {
@@ -77,7 +80,7 @@ const section = new Section(
   {
     // items: initialCards,
     renderer: (data) => {
-      const card = new Card(data, openImage.open, cardTemplate);
+      const card = new Card(data, openImage.open, cardTemplate,openConfirmPopup);
       const cardElement = card.generateCard();
       return cardElement;
     }
@@ -97,7 +100,7 @@ const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (d
       console.error(error);
     })
 });
- 
+
 
 // Promise.all для параллельного выполнения запросов
 Promise.all([api.getUserInfoApi(), api.getInitialCards()])

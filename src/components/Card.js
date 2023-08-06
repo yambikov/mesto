@@ -1,10 +1,13 @@
 export default class Card {
-  constructor(data, handleCardClick /* openImage.open */, cardTemplate) {
+  constructor(data, handleCardClick, cardTemplate, openConfirmPopup) {
     this._data = data;
     this._link = data.link;
     this._name = data.name;
     this._like = data.likes.length;
+    this._id = data.owner._id;
+
     this._handleCardClick = handleCardClick; // Функция обработчик клика по карточке
+    this._openConfirmPopup = openConfirmPopup;
     this.cardTemplate = cardTemplate; // Шаблон разметки карточки
   }
 
@@ -30,15 +33,21 @@ export default class Card {
 
   // Открывает попап с картинкой карточки
   _openPopupImage() {
+    console.log();
     this._handleCardClick(this._data); // Вызываем функцию обработчик для открытия попапа с картинкой карточки
+  }
 
+  // Открывает попап с подтверждением удаления
+  _openPopupWithDelete() {
+    this._openConfirmPopup.open()
   }
 
   // Устанавливает слушатели событий для карточки
   _setEventListeners() {
 
     this._buttonRemove.addEventListener('click', () => {
-      this._handleDeleteButton(); // Вызываем метод удаления карточки
+      this._openPopupWithDelete()
+      // this._handleDeleteButton(); // Вызываем метод удаления карточки
     });
     
     this._buttonLike.addEventListener('click', () => {
