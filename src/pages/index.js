@@ -16,7 +16,7 @@ import UserInfo from "../components/UserInfo.js";
 import Api from '../components/Api';
 import { data } from 'autoprefixer';
 
-
+const userID = "bba7060593119ffd8fc1af1f";
 // Конфигурация для API
 const apiConfig = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-72/',
@@ -80,7 +80,7 @@ const section = new Section(
   {
     // items: initialCards,
     renderer: (data) => {
-      const card = new Card(data, openImage.open, cardTemplate,openConfirmPopup);
+      const card = new Card(data, openImage.open, cardTemplate, openConfirmPopup, userID);
       const cardElement = card.generateCard();
       return cardElement;
     }

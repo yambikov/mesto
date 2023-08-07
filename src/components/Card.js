@@ -1,14 +1,23 @@
 export default class Card {
-  constructor(data, handleCardClick, cardTemplate, openConfirmPopup) {
+  constructor(data, handleCardClick, cardTemplate, openConfirmPopup, userID) {
     this._data = data;
     this._link = data.link;
     this._name = data.name;
     this._like = data.likes.length;
     this._id = data.owner._id;
+    this._userId = userID
 
     this._handleCardClick = handleCardClick; // Функция обработчик клика по карточке
     this._openConfirmPopup = openConfirmPopup;
     this.cardTemplate = cardTemplate; // Шаблон разметки карточки
+  }
+
+  _checkId() {
+    this._buttonRemove = this._element.querySelector('.element__remove');
+
+    if (this._id !== this._userId) {
+      this._buttonRemove.remove();
+    }
   }
 
   // Возвращает DOM-элемент карточки, созданный на основе шаблона
@@ -49,7 +58,7 @@ export default class Card {
       this._openPopupWithDelete()
       // this._handleDeleteButton(); // Вызываем метод удаления карточки
     });
-    
+
     this._buttonLike.addEventListener('click', () => {
       this._handleLikeButton(); // Вызываем метод переключения статуса лайка
     })
@@ -63,9 +72,11 @@ export default class Card {
   generateCard() {
     this._element = this._getTemplate();
 
+    this._checkId();
+
     this._buttonLike = this._element.querySelector('.element__like');
     this._cardImage = this._element.querySelector('.element__image');
-    this._buttonRemove = this._element.querySelector('.element__remove');
+
     this._cardTitle = this._element.querySelector('.element__title');
     this._likeContainer = this._element.querySelector('.element__like-counter')
 
