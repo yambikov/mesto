@@ -44,11 +44,10 @@ export default class Api {
     return this._makeRequest('cards', 'POST', data);
   }
 
-  deleteCard(data) {
-    console.log(this.cardId);
-    return this._makeRequest(`cards/${this.cardId}`, 'DELETE', data);
+  deleteCard(cardId) {
+    console.log(cardId);
+    return this._makeRequest(`cards/${cardId}`, 'DELETE');
   }
 }
-
 
 

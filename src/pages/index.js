@@ -44,11 +44,13 @@ const openImage = new PopupWithImage('.popup_type_image');
 // Функция открытия попапа подтверждения удаления
 const openPopupWithConfirm = new PopupWithConfirm('.popup_type_delete-card', (cardId) => {
   console.log(cardId);
-  // api.deleteCard(cardId)
-  //   .then(() => {
-  //     openPopupWithConfirm.close();
-  //   });
+  api.deleteCard(cardId)
+    .then(() => {
+      openPopupWithConfirm.close();
+      // card._handleDeleteButton()
+    });
 });
+
 
 
 // openPopupWithConfirm.open()
@@ -101,6 +103,7 @@ const section = new Section(
  // items: initialCards,
     renderer: (data) => {
       const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID);
+      ;
       const cardElement = card.generateCard();
       return cardElement;
     }

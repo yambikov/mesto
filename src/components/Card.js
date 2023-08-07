@@ -49,7 +49,8 @@ export default class Card {
 
   // Открывает попап с подтверждением удаления
   _openPopupWithDelete() {
-    this._openPopupWithConfirm.open(this._cardId); // Передайте идентификатор карточки в попап
+    this._openPopupWithConfirm.open(this._cardId); 
+    // console.log((this._cardId));// Передайте идентификатор карточки в попап
   }
   
 
