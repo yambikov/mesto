@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, handleCardClick, cardTemplate, openConfirmPopup, userID) {
+  constructor(data, handleCardClick, cardTemplate, openPopupWithConfirm, userID) {
     this._data = data;
     this._link = data.link;
     this._name = data.name;
@@ -9,7 +9,7 @@ export default class Card {
     this._cardId = data._id
 
     this._handleCardClick = handleCardClick; // Функция обработчик клика по карточке
-    this._openConfirmPopup = openConfirmPopup;
+    this._openPopupWithConfirm = openPopupWithConfirm;
     this.cardTemplate = cardTemplate; // Шаблон разметки карточки
   }
 // показать/скрыть иконку удаления
@@ -34,6 +34,7 @@ export default class Card {
   _handleDeleteButton() {
     this._element.remove();
     this._element = null;
+    // console.log(this._cardId)
   }
 
   // Переключает статус лайка на карточке
@@ -48,14 +49,14 @@ export default class Card {
 
   // Открывает попап с подтверждением удаления
   _openPopupWithDelete() {
-    console.log(this._cardId);
-    this._openConfirmPopup.open(this._cardId)
+    this._openPopupWithConfirm.open(this._cardId); // Передайте идентификатор карточки в попап
   }
+  
 
   // Устанавливает слушатели событий для карточки
   _setEventListeners() {
     this._buttonRemove.addEventListener('click', () => {
-      this._openPopupWithDelete()
+      this._openPopupWithDelete();
       // this._handleDeleteButton(); // Вызываем метод удаления карточки
     });
 

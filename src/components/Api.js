@@ -5,7 +5,7 @@ export default class Api {
     this.baseUrl = options.baseUrl;
     this.headers = options.headers;
     this.data = options.data;
-    this.cardId = this.cardId;
+    this.cardId = cardId;
   }
 
   // Вспомогательный метод для выполнения fetch-запросов и обработки ответа от сервера

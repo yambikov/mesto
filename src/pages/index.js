@@ -14,6 +14,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from '../components/Api';
+import PopupWithConfirm from '../components/popupWithConfirm.js';
 import { data } from 'autoprefixer';
 
 // ID пользователя для иконки корзины
@@ -31,14 +32,27 @@ const apiConfig = {
 // Функция открытия попапа с картинкой
 const openImage = new PopupWithImage('.popup_type_image');
 
+// // Функция открытия попапа подтверждения удаления
+// const openConfirmPopup = new PopupWithForm('.popup_type_delete-card', '.popup__content', (data) => {
+//   console.log(data);
+//   // api.deleteCard(data)
+//   // .then(
+//   //   openConfirmPopup.close()
+//   // )
+// });
+
 // Функция открытия попапа подтверждения удаления
-const openConfirmPopup = new PopupWithForm('.popup_type_delete-card', '.popup__content', (data) => {
-  console.log(data);
-  api.deleteCard(data)
-  .then(
-    openConfirmPopup.close()
-  )
+const openPopupWithConfirm = new PopupWithConfirm('.popup_type_delete-card', (cardId) => {
+  console.log(cardId);
+  // api.deleteCard(cardId)
+  //   .then(() => {
+  //     openPopupWithConfirm.close();
+  //   });
 });
+
+
+// openPopupWithConfirm.open()
+
 
 // Функция для редактирования профиля
 const userinfo = new UserInfo(formData);
@@ -86,7 +100,7 @@ const section = new Section(
   {
  // items: initialCards,
     renderer: (data) => {
-      const card = new Card(data, openImage.open, cardTemplate, openConfirmPopup, userID);
+      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID);
       const cardElement = card.generateCard();
       return cardElement;
     }
