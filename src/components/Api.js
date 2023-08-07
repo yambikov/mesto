@@ -1,10 +1,11 @@
 import { data } from "autoprefixer";
 
 export default class Api {
-  constructor(options) {
+  constructor(options, cardId) {
     this.baseUrl = options.baseUrl;
     this.headers = options.headers;
     this.data = options.data;
+    this.cardId = this.cardId;
   }
 
   // Вспомогательный метод для выполнения fetch-запросов и обработки ответа от сервера
@@ -41,6 +42,11 @@ export default class Api {
 
   postCard(data) {
     return this._makeRequest('cards', 'POST', data);
+  }
+
+  deleteCard(data) {
+    console.log(this.cardId);
+    return this._makeRequest(`cards/${this.cardId}`, 'DELETE', data);
   }
 }
 

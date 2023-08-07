@@ -16,7 +16,9 @@ import UserInfo from "../components/UserInfo.js";
 import Api from '../components/Api';
 import { data } from 'autoprefixer';
 
+// ID пользователя для иконки корзины
 const userID = "bba7060593119ffd8fc1af1f";
+
 // Конфигурация для API
 const apiConfig = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-72/',
@@ -29,10 +31,14 @@ const apiConfig = {
 // Функция открытия попапа с картинкой
 const openImage = new PopupWithImage('.popup_type_image');
 
-const openConfirmPopup = new PopupWithForm('.popup_type_delete-card', '.popup__content');
-
-// openConfirmPopup.open()
-
+// Функция открытия попапа подтверждения удаления
+const openConfirmPopup = new PopupWithForm('.popup_type_delete-card', '.popup__content', (data) => {
+  console.log(data);
+  api.deleteCard(data)
+  .then(
+    openConfirmPopup.close()
+  )
+});
 
 // Функция для редактирования профиля
 const userinfo = new UserInfo(formData);
@@ -78,7 +84,7 @@ const api = new Api(apiConfig);
 // Созддание карточки и добавление ее в разметку
 const section = new Section(
   {
-    // items: initialCards,
+ // items: initialCards,
     renderer: (data) => {
       const card = new Card(data, openImage.open, cardTemplate, openConfirmPopup, userID);
       const cardElement = card.generateCard();
@@ -90,7 +96,6 @@ const section = new Section(
 
 // Создание попапа для добавления карточки
 const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (data) => {
-  console.log(data);
   api.postCard(data)
     .then((cardData) => {
       section.addItem(cardData);

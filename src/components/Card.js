@@ -5,13 +5,14 @@ export default class Card {
     this._name = data.name;
     this._like = data.likes.length;
     this._id = data.owner._id;
-    this._userId = userID
+    this._userId = userID;
+    this._cardId = data._id
 
     this._handleCardClick = handleCardClick; // Функция обработчик клика по карточке
     this._openConfirmPopup = openConfirmPopup;
     this.cardTemplate = cardTemplate; // Шаблон разметки карточки
   }
-
+// показать/скрыть иконку удаления
   _checkId() {
     this._buttonRemove = this._element.querySelector('.element__remove');
 
@@ -42,18 +43,17 @@ export default class Card {
 
   // Открывает попап с картинкой карточки
   _openPopupImage() {
-    console.log();
     this._handleCardClick(this._data); // Вызываем функцию обработчик для открытия попапа с картинкой карточки
   }
 
   // Открывает попап с подтверждением удаления
   _openPopupWithDelete() {
-    this._openConfirmPopup.open()
+    console.log(this._cardId);
+    this._openConfirmPopup.open(this._cardId)
   }
 
   // Устанавливает слушатели событий для карточки
   _setEventListeners() {
-
     this._buttonRemove.addEventListener('click', () => {
       this._openPopupWithDelete()
       // this._handleDeleteButton(); // Вызываем метод удаления карточки
@@ -76,7 +76,6 @@ export default class Card {
 
     this._buttonLike = this._element.querySelector('.element__like');
     this._cardImage = this._element.querySelector('.element__image');
-
     this._cardTitle = this._element.querySelector('.element__title');
     this._likeContainer = this._element.querySelector('.element__like-counter')
 
