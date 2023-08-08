@@ -5,7 +5,7 @@ export default class PopupWithConfirm extends Popup {
     super(popupSelector);
     this._form = this._popup.querySelector('.popup__content');
     this._handleSubmitForm = handleSubmitForm;
-    // this._cardId = null;
+    this._cardId = null;
   }
 
   setEventListeners() {
@@ -16,10 +16,10 @@ export default class PopupWithConfirm extends Popup {
     });
   }
 
-  open(cardId) {
+  open({cardId, card}) {
     super.open();
     this._cardId = cardId;
-    // this._card = card; // Сохраняем идентификатор карточки
-    // console.log(card);
+    this._card = card; 
+    console.log(card);
   }
 }

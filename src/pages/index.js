@@ -42,14 +42,15 @@ const openImage = new PopupWithImage('.popup_type_image');
 // });
 
 // Функция открытия попапа подтверждения удаления
-const openPopupWithConfirm = new PopupWithConfirm('.popup_type_delete-card', (cardId) => {
-  console.log(cardId);
-  api.deleteCard(cardId)
+const openPopupWithConfirm = new PopupWithConfirm('.popup_type_delete-card', ({cardId, card}) => {
+  console.log({cardId, card});
+  api.deleteCard({cardId, card})
     .then(() => {
       openPopupWithConfirm.close();
-      // card._handleDeleteButton()
+      card._handleDeleteButton(); // Ошибка возникает здесь
     });
 });
+
 
 
 
@@ -105,6 +106,7 @@ const section = new Section(
       const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID);
       ;
       const cardElement = card.generateCard();
+      const cardDeleteFromDom = card._handleDeleteButton()
       return cardElement;
     }
   },
