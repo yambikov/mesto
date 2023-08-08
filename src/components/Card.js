@@ -7,6 +7,7 @@ export default class Card {
     this._id = data.owner._id;
     this._userId = userID;
     this._cardId = data._id
+    this._card = this
 
     this._handleCardClick = handleCardClick; // Функция обработчик клика по карточке
     this._openPopupWithConfirm = openPopupWithConfirm;
@@ -49,7 +50,7 @@ export default class Card {
 
   // Открывает попап с подтверждением удаления
   _openPopupWithDelete() {
-    this._openPopupWithConfirm.open(this._cardId); 
+    this._openPopupWithConfirm.open(this._cardId, this._card); 
     // console.log((this._cardId));// Передайте идентификатор карточки в попап
   }
   
