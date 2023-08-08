@@ -45,9 +45,17 @@ export default class Api {
   }
 
   deleteCard(cardId) {
-    console.log(cardId);
     return this._makeRequest(`cards/${cardId}`, 'DELETE');
   }
+
+  putLike(cardId) {
+    return this._makeRequest(`cards/${cardId}/likes`, 'PUT');
+  }
+
+  deleteLike(cardId) {
+    return this._makeRequest(`cards/${cardId}/likes`, 'DELETE');
+  }
+
 }
 
 

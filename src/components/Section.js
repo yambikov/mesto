@@ -1,8 +1,6 @@
 export default class Section {
-  constructor({ /*items /* initialCards , */ renderer/* создает карточку */ }, selector /* место, куда нужно будет добавить карточку */) {
-    // this._renderedItems = items;
+  constructor({ renderer/* создает карточку */ }, selector /* место, куда нужно будет добавить карточку */) {
     this._renderer = renderer;
-
     this._container = document.querySelector(selector);
   }
 

@@ -90,6 +90,8 @@ const section = new Section(
     renderer: (data) => {
       const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID);
       const cardElement = card.generateCard();
+      
+
       return cardElement;
     }
   },

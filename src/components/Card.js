@@ -14,6 +14,7 @@ export default class Card {
     this._handleCardClick = handleCardClick; // Функция обработчик клика по карточке
     this._openPopupWithConfirm = openPopupWithConfirm;
     this.cardTemplate = cardTemplate; // Шаблон разметки карточки
+    this.likesCount = data.likes.length; // Кол-во лайков
   }
 
   // Показать/скрыть иконку удаления в зависимости от владельца карточки
@@ -85,7 +86,7 @@ export default class Card {
     this._cardImage.src = this._link; // Устанавливаем изображение карточки
     this._cardTitle.textContent = this._name; // Устанавливаем заголовок карточки
     this._cardImage.alt = this._name; // Устанавливаем альтернативный текст для изображения
-    this._likeContainer.textContent = this._like;
+    this._likeContainer.textContent = this.likesCount; // Устанавливаем кол-во лайков
 
     return this._element;
   }
