@@ -39,7 +39,10 @@ const openPopupWithConfirm = new PopupWithConfirm('.popup_type_delete-card', (ca
   api.deleteCard(cardId)
     .then(() => {
       openPopupWithConfirm.close();
-      card._handleDeleteButton()
+      card.removeCard();
+    })
+    .catch((error) => {
+      console.error('Ошибка при редактировании профиля:', error); // Выводим ошибку в консоль при возникновении ошибки
     });
 });
 

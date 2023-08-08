@@ -32,9 +32,9 @@ export default class Card {
   }
 
   // Удаляет карточку из DOM
-  _handleDeleteButton() {
+  removeCard() {
     this._element.remove();
-    this._element = null;
+    // this._element = null;
     // console.log(this._cardId)
   }
 
@@ -50,9 +50,11 @@ export default class Card {
 
   // Открывает попап с подтверждением удаления
   _openPopupWithDelete() {
+    
     this._openPopupWithConfirm.open(this._cardId, this._card); 
     // console.log((this._cardId));// Передайте идентификатор карточки в попап
   }
+  
   
 
   // Устанавливает слушатели событий для карточки
@@ -70,6 +72,7 @@ export default class Card {
       this._openPopupImage() // Вызываем метод открытия попапа с картинкой
     })
   }
+  
 
   // Создает и возвращает DOM-элемент карточки с заполненными данными
   generateCard() {
