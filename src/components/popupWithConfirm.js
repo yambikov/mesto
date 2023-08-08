@@ -10,16 +10,27 @@ export default class PopupWithConfirm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      this._handleSubmitForm(this._cardId); // Передаем идентификатор карточки в обработчик формы
-    });
+    this._form.addEventListener('submit', this._handleSubmitSubmit); // Используем отдельный метод для обработки submit
   }
 
-  open({cardId, card}) {
+  removeEventListeners() {
+    super.removeEventListeners();
+    this._form.removeEventListener('submit', this._handleSubmitSubmit);
+  }
+
+  _handleSubmitSubmit = (evt) => {
+    evt.preventDefault();
+    this._handleSubmitForm(this._cardId, this._card);
+  }
+
+  open(cardId, card) {
     super.open();
     this._cardId = cardId;
-    this._card = card; 
-    console.log(card);
+    this._card = card;
+  }
+
+  close() {
+    super.close();
+    this._cardId = null; // Обнуляем _cardId при закрытии попапа
   }
 }

@@ -32,21 +32,29 @@ const apiConfig = {
 // Функция открытия попапа с картинкой
 const openImage = new PopupWithImage('.popup_type_image');
 
+// // Функция открытия попапа подтверждения удаления
+// const openConfirmPopup = new PopupWithForm('.popup_type_delete-card', '.popup__content', (data) => {
+//   console.log(data);
+//   // api.deleteCard(data)
+//   // .then(
+//   //   openConfirmPopup.close()
+//   // )
+// });
 
 // Функция открытия попапа подтверждения удаления
-const openPopupWithConfirm = new PopupWithConfirm('.popup_type_delete-card', (cardId, card) => {
-  console.log(card);
-  api.deleteCard(cardId)
+const openPopupWithConfirm = new PopupWithConfirm('.popup_type_delete-card', ({cardId, card}) => {
+  console.log({cardId, card});
+  api.deleteCard({cardId, card})
     .then(() => {
       openPopupWithConfirm.close();
-      card.removeCard();
-    })
-    .catch((error) => {
-      console.error('Ошибка при редактировании профиля:', error); // Выводим ошибку в консоль при возникновении ошибки
+      card._handleDeleteButton(); // Ошибка возникает здесь
     });
 });
 
 
+
+
+// openPopupWithConfirm.open()
 
 
 // Функция для редактирования профиля
