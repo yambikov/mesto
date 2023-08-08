@@ -7,7 +7,7 @@ import {
   cardAddButton,
   cardForm,
   cardTemplate,
-} from "../utils/constants.js"
+} from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
@@ -32,10 +32,8 @@ const apiConfig = {
 // Функция открытия попапа с картинкой
 const openImage = new PopupWithImage('.popup_type_image');
 
-
 // Функция открытия попапа подтверждения удаления
 const openPopupWithConfirm = new PopupWithConfirm('.popup_type_delete-card', (cardId, card) => {
-  console.log(card);
   api.deleteCard(cardId)
     .then(() => {
       openPopupWithConfirm.close();
@@ -45,9 +43,6 @@ const openPopupWithConfirm = new PopupWithConfirm('.popup_type_delete-card', (ca
       console.error('Ошибка при редактировании профиля:', error); // Выводим ошибку в консоль при возникновении ошибки
     });
 });
-
-
-
 
 // Функция для редактирования профиля
 const userinfo = new UserInfo(formData);
@@ -89,16 +84,12 @@ profileEditButton.addEventListener('click', () => {
 // Создание экземпляра класса Api с переданным конфигурационным объектом 'apiConfig'
 const api = new Api(apiConfig);
 
-
-// Созддание карточки и добавление ее в разметку
+// Создание карточки и добавление ее в разметку
 const section = new Section(
   {
- // items: initialCards,
     renderer: (data) => {
       const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID);
-      ;
       const cardElement = card.generateCard();
-      const cardDeleteFromDom = card._handleDeleteButton()
       return cardElement;
     }
   },
@@ -114,9 +105,8 @@ const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (d
     })
     .catch((error) => {
       console.error(error);
-    })
+    });
 });
-
 
 // Promise.all для параллельного выполнения запросов
 Promise.all([api.getUserInfoApi(), api.getInitialCards()])
