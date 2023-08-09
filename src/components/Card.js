@@ -5,6 +5,7 @@ export default class Card {
     this._link = data.link;
     this._name = data.name;
     this._like = data.likes.length;
+    this._likes = data.likes;
     this._id = data.owner._id;
     this._userId = userID;
     this._cardId = data._id;
@@ -17,13 +18,16 @@ export default class Card {
     this.likesCount = data.likes.length; // Кол-во лайков
   }
 
-  // Показать/скрыть иконку удаления в зависимости от владельца карточки
-  _checkId() {
-    this._buttonRemove = this._element.querySelector('.element__remove');
+  isLikedByUser() {
+    return this._likes.some(like => like._id === this._userId);
+  }
 
-    if (this._id !== this._userId) {
-      this._buttonRemove.remove();
-    }
+  activateLike() {
+    this._buttonLike.classList.add('element__like_active');
+  }
+
+  deactivateLiked() {
+    this._buttonLike.classList.remove('element__like_active');
   }
 
   // Возвращает DOM-элемент карточки, созданный на основе шаблона
@@ -62,7 +66,8 @@ export default class Card {
     });
 
     this._buttonLike.addEventListener('click', () => {
-      this._handleLikeButton(); // Вызываем метод переключения статуса лайка
+      // this._handleLikeButton(); // Вызываем метод переключения статуса лайка
+      console.log('like');
     });
 
     this._cardImage.addEventListener('click', () => {
@@ -70,11 +75,20 @@ export default class Card {
     });
   }
 
+   // Показать/скрыть иконку удаления в зависимости от владельца карточки
+   _hideRemoveButton() {
+    this._buttonRemove = this._element.querySelector('.element__remove');
+
+    if (this._id !== this._userId) {
+      this._buttonRemove.remove();
+    }
+  }
+
   // Создает и возвращает DOM-элемент карточки с заполненными данными
   generateCard() {
     this._element = this._getTemplate();
 
-    this._checkId();
+    this._hideRemoveButton();
 
     this._buttonLike = this._element.querySelector('.element__like');
     this._cardImage = this._element.querySelector('.element__image');
@@ -87,6 +101,12 @@ export default class Card {
     this._cardTitle.textContent = this._name; // Устанавливаем заголовок карточки
     this._cardImage.alt = this._name; // Устанавливаем альтернативный текст для изображения
     this._likeContainer.textContent = this.likesCount; // Устанавливаем кол-во лайков
+
+    if (this.isLikedByUser()) {
+      this.activateLike(); // Карточка лайкнута
+    } else {
+      this.deactivateLiked(); // Карточка не лайкнута
+    }
 
     return this._element;
   }
