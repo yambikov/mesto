@@ -88,15 +88,18 @@ const api = new Api(apiConfig);
 const section = new Section(
   {
     renderer: (data) => {
-      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID);
+      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (newData) => {
+        console.log(newData); 
+      });
+
       const cardElement = card.generateCard();
-      
 
       return cardElement;
     }
   },
   '.elements',
 );
+
 
 // Создание попапа для добавления карточки
 const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (data) => {
