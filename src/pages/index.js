@@ -88,8 +88,8 @@ const api = new Api(apiConfig);
 const section = new Section(
   {
     renderer: (data) => {
-      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (newData) => {
-        console.log(newData); 
+      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (clickData) => {
+        console.log(clickData); 
       });
 
       const cardElement = card.generateCard();

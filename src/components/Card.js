@@ -1,7 +1,7 @@
 import { data } from "autoprefixer";
 
 export default class Card {
-  constructor(data, handleCardClick, cardTemplate, openPopupWithConfirm, userID, newData) {
+  constructor(data, handleCardClick, cardTemplate, openPopupWithConfirm, userID, clickData) {
     this._data = data;
     this._link = data.link;
     this._name = data.name;
@@ -17,11 +17,11 @@ export default class Card {
     this._openPopupWithConfirm = openPopupWithConfirm;
     this.cardTemplate = cardTemplate;
     this.likesCount = data.likes.length;
-    this._handleNewData = newData
+    this._handleLikeClick = clickData
   }
 
-  likesTransfer(newData) {
-    this._handleNewData(newData);
+  likesTransfer() {
+    this._handleLikeClick(this._cardId);
   }
 
   
