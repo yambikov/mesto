@@ -88,12 +88,15 @@ const api = new Api(apiConfig);
 const section = new Section(
   {
     renderer: (data) => {
-      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (cardId) => {
+      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (likeData) => {
         // console.log(`clickData: ${cardId}`);
-        if (card.isLikedByUser(cardId)) {
+        if (card.isLikedByUser(likeData)) {
           console.log("User has already liked this card");
-          api.deleteLike(cardId)
+          api.deleteLike(likeData)
             .then((res) => {
+              console.log(res.likes.length);
+              card.likesCounter(res);
+
               // console.log(res);
               // card.deleteLikeFromCounter(cardId);
               // card.deactivateLiked();
@@ -101,8 +104,10 @@ const section = new Section(
             .catch((err) => console.log(err));
         } else {
           console.log("User has not liked this card yet");
-          api.putLike(cardId)
+          api.putLike(likeData)
             .then((res) => {
+              console.log(res.likes.length);
+              card.likesCounter(res);
               // console.log(res);
               // card.addLikeToCounter(cardId);
               // card.activateLike();

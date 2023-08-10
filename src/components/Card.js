@@ -1,7 +1,7 @@
 import { data } from "autoprefixer";
 
 export default class Card {
-  constructor(data, handleCardClick, cardTemplate, openPopupWithConfirm, userID, likeId) {
+  constructor(data, handleCardClick, cardTemplate, openPopupWithConfirm, userID, likeData) {
     this._data = data;
     this._link = data.link;
     this._name = data.name;
@@ -17,15 +17,29 @@ export default class Card {
     this._openPopupWithConfirm = openPopupWithConfirm;
     this.cardTemplate = cardTemplate;
     this.likesCount = data.likes.length;
-    this._handleLikeClick = likeId;
+    this._handleLikeClick = likeData;
 
     // this._buttonLike = document.querySelector('.element__like'); 
   }
+
+likesCounter(res) {
+  this.likesCount = res.likes.length;
+  console.log(this.likesCount);
+  this._likeContainer.textContent = this.likesCount;
+}
 
   // addLikeToCounter(){
   //   this.likesCount++;
   //   console.log(this.likesCount);
   // }
+
+  dataChecker() {
+    
+    console.log(this._data);
+    console.log(this._likes.length);
+    // console.log(this._cardId);
+    // console.log('======================================================================================================================================================================================================');
+  }
 
   addLikeToCounter() {
     this.likesCount++;
@@ -107,7 +121,8 @@ export default class Card {
     });
 
     this._buttonLike.addEventListener('click', () => {
-      this.likesTransfer()
+      this.likesTransfer();
+      this.dataChecker();
 
     });
 
@@ -137,6 +152,7 @@ export default class Card {
     this._likeContainer = this._element.querySelector('.element__like-counter');
 
     this._setEventListeners();
+    // this.dataChecker();
 
     this._cardImage.src = this._link;
     this._cardTitle.textContent = this._name;
