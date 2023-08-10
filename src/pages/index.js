@@ -90,15 +90,23 @@ const section = new Section(
     renderer: (data) => {
       const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (cardId) => {
         console.log(`clickData: ${cardId}`);
-        if (card.isLikedByUser(cardId) === true) {
+        if (card.isLikedByUser(cardId)) {
           console.log("User has already liked this card");
           api.deleteLike(cardId)
-            .then((res) => { console.log(res); })
+            .then((res) => {
+              console.log(`api.deleteLike ${res}`);
+              card.deleteLikeFromCounter(cardId);
+              card.deactivateLiked();
+            })
             .catch((err) => console.log(err));
         } else {
           console.log("User has not liked this card yet");
           api.putLike(cardId)
-            .then((res) => { console.log(res) })
+            .then((res) => {
+              console.log(`api.putLike ${res}`);
+              card.addLikeToCounter(cardId);
+              card.activateLike();
+            })
             .catch((err) => console.log(err));
         }
       });
@@ -108,8 +116,9 @@ const section = new Section(
       return cardElement;
     }
   },
-  '.elements',
+  '.elements'
 );
+
 
 
 // Создание попапа для добавления карточки

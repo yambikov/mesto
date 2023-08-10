@@ -20,6 +20,23 @@ export default class Card {
     this._handleLikeClick = likeId
   }
 
+  // addLikeToCounter(){
+  //   this.likesCount++;
+  //   console.log(this.likesCount);
+  // }
+
+  addLikeToCounter() {
+    this.likesCount++;
+    this._likeContainer.textContent = this.likesCount;
+  }
+
+  deleteLikeFromCounter(){
+    this.likesCount--;
+    this._likeContainer.textContent = this.likesCount;
+  }
+
+
+
   likesTransfer() {
     this._handleLikeClick(this._cardId);
   }
