@@ -20,10 +20,11 @@ export default class Card {
     this._handleNewData = newData
   }
 
-  setLikesUpdater(newData) {
-    newData = '123'
+  likesTransfer(newData) {
     this._handleNewData(newData);
   }
+
+  
   
 
   // setLikesUpdater() {
@@ -80,7 +81,7 @@ export default class Card {
     this._buttonLike.addEventListener('click', () => {
       console.log('like');
       console.log('нужно отправить в index.js данные о том, что нажата like');
-      this.setLikesUpdater()
+      this.likesTransfer()
 
     });
 
