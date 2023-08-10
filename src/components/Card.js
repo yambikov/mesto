@@ -17,7 +17,9 @@ export default class Card {
     this._openPopupWithConfirm = openPopupWithConfirm;
     this.cardTemplate = cardTemplate;
     this.likesCount = data.likes.length;
-    this._handleLikeClick = likeId
+    this._handleLikeClick = likeId;
+
+    // this._buttonLike = document.querySelector('.element__like'); 
   }
 
   // addLikeToCounter(){
@@ -34,7 +36,6 @@ export default class Card {
     this.likesCount--;
     this._likeContainer.textContent = this.likesCount;
   }
-
 
 
   likesTransfer() {
@@ -55,12 +56,21 @@ export default class Card {
   // }
 
   isLikedByUser() {
-    return this._likes.some(like => like._id === this._userId);
+    console.log('isLikedByUser called');
+    this._likes.some(like => like._id === this._userId);
+    this._buttonLike.classList.add('element__like_active');
+
+    return 
   }
 
-  activateLike() {
-    this._buttonLike.classList.add('element__like_active');
-  }
+  // isLikedByUser() {
+  //   return this._likes.some(like => like._id === this._userId);
+  // }
+
+
+  // activateLike() {
+  //   this._buttonLike.classList.add('element__like_active');
+  // }
 
   deactivateLiked() {
     this._buttonLike.classList.remove('element__like_active');
@@ -115,10 +125,12 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+    this._buttonLike = this._element.querySelector('.element__like'); 
 
     this._hideRemoveButton();
+    // this.isLikedByUser();
 
-    this._buttonLike = this._element.querySelector('.element__like');
+    this._buttonLike.classList.add('element__like_active');
     this._cardImage = this._element.querySelector('.element__image');
     this._cardTitle = this._element.querySelector('.element__title');
     this._likeContainer = this._element.querySelector('.element__like-counter');
@@ -130,11 +142,11 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._likeContainer.textContent = this.likesCount;
 
-    if (this.isLikedByUser()) {
-      this.activateLike();
-    } else {
-      this.deactivateLiked();
-    }
+    // if (this.isLikedByUser()) {
+    //   this.activateLike();
+    // } else {
+    //   this.deactivateLiked();
+    // }
 
     return this._element;
   }

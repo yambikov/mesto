@@ -94,24 +94,25 @@ const section = new Section(
           console.log("User has already liked this card");
           api.deleteLike(cardId)
             .then((res) => {
-              console.log(`api.deleteLike ${res}`);
-              card.deleteLikeFromCounter(cardId);
-              card.deactivateLiked();
+              console.log(res);
+              // card.deleteLikeFromCounter(cardId);
+              // card.deactivateLiked();
             })
             .catch((err) => console.log(err));
         } else {
           console.log("User has not liked this card yet");
           api.putLike(cardId)
             .then((res) => {
-              console.log(`api.putLike ${res}`);
-              card.addLikeToCounter(cardId);
-              card.activateLike();
+              console.log(res);
+              // card.addLikeToCounter(cardId);
+              // card.activateLike();
             })
             .catch((err) => console.log(err));
         }
       });
 
       const cardElement = card.generateCard();
+      
 
       return cardElement;
     }
