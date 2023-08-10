@@ -26,7 +26,7 @@ likesCounter(res) {
   this.likesCount = res.likes.length;
   console.log(res);
   this._likeContainer.textContent = this.likesCount;
-  this.likeButtonHandler ()
+  this._buttonLike.classList.toggle('element__like_active');
 }
 
   // addLikeToCounter(){
@@ -70,16 +70,28 @@ likesCounter(res) {
   //   // this._likesUpdater = likesUpdater;
   // }
 
-  likeButtonHandler () {
-    if (this.isLikedByUser() === true) {
+  // likeButtonHandler () {
+  //   if (this.isLikedByUser() === true) {
+  //     console.log('вкл лайк');
+  //     this._buttonLike.classList.add('element__like_active');
+  //   } else {
+  //     console.log('выкл лайк');
+  //     this._buttonLike.classList.remove('element__like_active');
+  //     this.isLikedByUser.toggle
+
+  //   }
+  // }
+
+  likeButtonHandler() {
+    if (this.isLikedByUser()) {
       console.log('вкл лайк');
       this._buttonLike.classList.add('element__like_active');
     } else {
       console.log('выкл лайк');
       this._buttonLike.classList.remove('element__like_active');
-
     }
   }
+  
 
 
 
