@@ -1,7 +1,7 @@
 import { data } from "autoprefixer";
 
 export default class Card {
-  constructor(data, handleCardClick, cardTemplate, openPopupWithConfirm, userID, clickData) {
+  constructor(data, handleCardClick, cardTemplate, openPopupWithConfirm, userID, likeId) {
     this._data = data;
     this._link = data.link;
     this._name = data.name;
@@ -17,7 +17,7 @@ export default class Card {
     this._openPopupWithConfirm = openPopupWithConfirm;
     this.cardTemplate = cardTemplate;
     this.likesCount = data.likes.length;
-    this._handleLikeClick = clickData
+    this._handleLikeClick = likeId
   }
 
   likesTransfer() {
@@ -79,8 +79,6 @@ export default class Card {
     });
 
     this._buttonLike.addEventListener('click', () => {
-      console.log('like');
-      console.log('нужно отправить в index.js данные о том, что нажата like');
       this.likesTransfer()
 
     });

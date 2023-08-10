@@ -88,14 +88,20 @@ const api = new Api(apiConfig);
 const section = new Section(
   {
     renderer: (data) => {
-      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (clickData) => {
-        console.log(clickData);
-        if (card.isLikedByUser === true) {
+      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (cardId) => {
+        console.log(`clickData: ${cardId}`);
+        if (card.isLikedByUser(cardId) === true) {
           console.log("User has already liked this card");
-      } else {
-        console.log("User has not liked this card yet");
-      }
-    });
+          api.deleteLike(cardId)
+            .then((res) => { console.log(res); })
+            .catch((err) => console.log(err));
+        } else {
+          console.log("User has not liked this card yet");
+          api.putLike(cardId)
+            .then((res) => { console.log(res) })
+            .catch((err) => console.log(err));
+        }
+      });
 
       const cardElement = card.generateCard();
 
