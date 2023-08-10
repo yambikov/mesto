@@ -24,8 +24,9 @@ export default class Card {
 
 likesCounter(res) {
   this.likesCount = res.likes.length;
-  console.log(this.likesCount);
+  console.log(res);
   this._likeContainer.textContent = this.likesCount;
+  this.likeButtonHandler()
 }
 
   // addLikeToCounter(){
@@ -41,15 +42,15 @@ likesCounter(res) {
     // console.log('======================================================================================================================================================================================================');
   }
 
-  addLikeToCounter() {
-    this.likesCount++;
-    this._likeContainer.textContent = this.likesCount;
-  }
+  // addLikeToCounter() {
+  //   this.likesCount++;
+  //   this._likeContainer.textContent = this.likesCount;
+  // }
 
-  deleteLikeFromCounter(){
-    this.likesCount--;
-    this._likeContainer.textContent = this.likesCount;
-  }
+  // deleteLikeFromCounter(){
+  //   this.likesCount--;
+  //   this._likeContainer.textContent = this.likesCount;
+  // }
 
 
   likesTransfer() {
@@ -69,12 +70,25 @@ likesCounter(res) {
   //   // this._likesUpdater = likesUpdater;
   // }
 
+  likeButtonHandler () {
+    if (this.isLikedByUser === true) {
+      console.log('вкл лайк');
+      this._buttonLike.classList.add('element__like_active');
+    } else {
+      console.log('выкл лайк');
+      this._buttonLike.classList.remove('element__like_active');
+
+    }
+  }
+
+
+
   isLikedByUser() {
     const isLiked = this._likes.some(item => item._id === this._userId);
   
     console.log(`Checking if any item is liked by user ${this._userId}: ${isLiked}`);
     
-    return isLiked;
+    return isLiked; // true or false 
   }
   
 
@@ -87,9 +101,9 @@ likesCounter(res) {
   //   this._buttonLike.classList.add('element__like_active');
   // }
 
-  deactivateLiked() {
-    this._buttonLike.classList.remove('element__like_active');
-  }
+  // deactivateLiked() {
+  //   this._buttonLike.classList.remove('element__like_active');
+  // }
 
   _getTemplate() {
     const template = this.cardTemplate
@@ -164,6 +178,8 @@ likesCounter(res) {
     // } else {
     //   this.deactivateLiked();
     // }
+
+    this.likeButtonHandler ()
 
     return this._element;
   }
