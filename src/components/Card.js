@@ -26,7 +26,7 @@ likesCounter(res) {
   this.likesCount = res.likes.length;
   console.log(res);
   this._likeContainer.textContent = this.likesCount;
-  this.likeButtonHandler()
+  this.likeButtonHandler ()
 }
 
   // addLikeToCounter(){
@@ -71,7 +71,7 @@ likesCounter(res) {
   // }
 
   likeButtonHandler () {
-    if (this.isLikedByUser === true) {
+    if (this.isLikedByUser() === true) {
       console.log('вкл лайк');
       this._buttonLike.classList.add('element__like_active');
     } else {
