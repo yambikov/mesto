@@ -89,8 +89,13 @@ const section = new Section(
   {
     renderer: (data) => {
       const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (clickData) => {
-        console.log(clickData); 
-      });
+        console.log(clickData);
+        if (card.isLikedByUser === true) {
+          console.log("User has already liked this card");
+      } else {
+        console.log("User has not liked this card yet");
+      }
+    });
 
       const cardElement = card.generateCard();
 
