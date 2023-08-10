@@ -19,6 +19,7 @@ export default class Card {
     this.likesCount = data.likes.length;
     this._handleLikeClick = likeData;
 
+
     // this._buttonLike = document.querySelector('.element__like'); 
   }
 
@@ -27,6 +28,15 @@ likesCounter(res) {
   console.log(res);
   this._likeContainer.textContent = this.likesCount;
   this._buttonLike.classList.toggle('element__like_active');
+
+}
+
+isLikedByUser = () => {
+  const isLiked = this._likes.some(item => item._id === this._userId);
+
+  // console.log(`Checking if any item is liked by user ${this._userId}: ${isLiked}`);
+  
+  return isLiked; // true or false 
 }
 
   // addLikeToCounter(){
@@ -84,10 +94,10 @@ likesCounter(res) {
 
   likeButtonHandler() {
     if (this.isLikedByUser()) {
-      console.log('вкл лайк');
+      // console.log('вкл лайк');
       this._buttonLike.classList.add('element__like_active');
     } else {
-      console.log('выкл лайк');
+      // console.log('выкл лайк');
       this._buttonLike.classList.remove('element__like_active');
     }
   }
@@ -95,13 +105,9 @@ likesCounter(res) {
 
 
 
-  isLikedByUser() {
-    const isLiked = this._likes.some(item => item._id === this._userId);
-  
-    console.log(`Checking if any item is liked by user ${this._userId}: ${isLiked}`);
-    
-    return isLiked; // true or false 
-  }
+
+
+
   
 
   // isLikedByUser() {

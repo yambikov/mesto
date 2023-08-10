@@ -96,6 +96,9 @@ const section = new Section(
             .then((res) => {
               console.log(res.likes.length);
               card.likesCounter(res);
+              console.log(card.isLikedByUser());
+              // card.isLiked = false;
+              // console.log(card.isLiked);
 
               // console.log(res);
               // card.deleteLikeFromCounter(cardId);
@@ -108,6 +111,11 @@ const section = new Section(
             .then((res) => {
               console.log(res.likes.length);
               card.likesCounter(res);
+              console.log(card.isLikedByUser());
+              card.isLikedByUser === true;
+              // console.log(card.isLiked);
+              // card.isLiked = true;
+              // console.log(card.isLiked);
               // console.log(res);
               // card.addLikeToCounter(cardId);
               // card.activateLike();
