@@ -89,12 +89,12 @@ const section = new Section(
   {
     renderer: (data) => {
       const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (cardId) => {
-        console.log(`clickData: ${cardId}`);
+        // console.log(`clickData: ${cardId}`);
         if (card.isLikedByUser(cardId)) {
           console.log("User has already liked this card");
           api.deleteLike(cardId)
             .then((res) => {
-              console.log(res);
+              // console.log(res);
               // card.deleteLikeFromCounter(cardId);
               // card.deactivateLiked();
             })
@@ -103,7 +103,7 @@ const section = new Section(
           console.log("User has not liked this card yet");
           api.putLike(cardId)
             .then((res) => {
-              console.log(res);
+              // console.log(res);
               // card.addLikeToCounter(cardId);
               // card.activateLike();
             })

@@ -56,12 +56,13 @@ export default class Card {
   // }
 
   isLikedByUser() {
-    console.log('isLikedByUser called');
-    this._likes.some(like => like._id === this._userId);
-    this._buttonLike.classList.add('element__like_active');
-
-    return 
+    const isLiked = this._likes.some(item => item._id === this._userId);
+  
+    console.log(`Checking if any item is liked by user ${this._userId}: ${isLiked}`);
+    
+    return isLiked;
   }
+  
 
   // isLikedByUser() {
   //   return this._likes.some(like => like._id === this._userId);
