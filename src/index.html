@@ -20,7 +20,7 @@
     <main>
       <section class="profile">
         <!-- <img class="profile__avatar" src="<%=require('./images/profile_avatar.png')%>" alt="Аватар"> -->
-        <img class="profile__avatar" src="" alt="Аватар">
+        <img class="profile__avatar" src alt="Аватар">
         <button class="profile__avatar-update-button" type="button"></button>
         <div class="profile__info">
           <div class="profile__wrapper">
@@ -61,11 +61,9 @@
       <button class="popup__close-icon" type="button"></button>
       <form class="popup__content" name="card-edit" novalidate>
         <h2 class="popup__title">Новое место</h2>
-        <input class="popup__item" name="name" type="text" value placeholder="Название" minlength="2" maxlength="30"
-          autocomplete="off" required>
+        <input class="popup__item" name="name" type="text" value placeholder="Название" minlength="2" maxlength="30" autocomplete="off" required>
         <span class="input-error-name error"></span>
-        <input class="popup__item" name="link" type="url" value placeholder="Ссылка на картинку" required
-          autocomplete="off">
+        <input class="popup__item" name="link" type="url" value placeholder="Ссылка на картинку" required autocomplete="off">
         <span class="input-error-link error"></span>
         <input class="popup__button" type="submit" value="Сохранить">
       </form>
@@ -102,8 +100,9 @@
       <button class="popup__close-icon" type="button"></button>
       <form class="popup__content" name="avatar-edit" novalidate>
         <h2 class="popup__title">Обновить аватар</h2>
-        <input class="popup__item" name="link" type="url" value placeholder="Действующая ссылка" required
-          autocomplete="off">
+        <!-- <input class="popup__item" name="link" type="url" value placeholder="Действующая ссылка" required
+          autocomplete="off"> -->
+          <input class="popup__item" name="avatar" type="url" value placeholder="Действующая ссылка" required autocomplete="off">
         <span class="input-error-link error"></span>
         <input class="popup__button" type="submit" value="Сохранить">
       </form>

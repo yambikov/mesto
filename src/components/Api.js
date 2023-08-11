@@ -58,6 +58,7 @@ export default class Api {
 
   // PATCH https://mesto.nomoreparties.co/v1/cohortId/users/me/avatar 
   patchAvatar(data) {
+    console.log(data);
     return this._makeRequest(`users/me/avatar`, 'PATCH', data);
   }
 

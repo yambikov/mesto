@@ -31,8 +31,9 @@ const formData = {
   inputErrorClass: 'popup__input_type_error',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
-  nameInput: '[name="name"]',
-  jobInput: '[name="about"]',
+  // nameInput: '[name="name"]',
+  // jobInput: '[name="about"]',
+  avatarInput: '[name="avatar"]',
   profileTitle: '.profile__title',
   profileSubtitle: '.profile__subtitle',
   avatar: '.profile__avatar'

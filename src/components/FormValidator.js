@@ -21,7 +21,9 @@ export default class FormValidator {
 
   // Выкл. ошибку удаляя класс из span
   _hideInputError(input, errorMessage) {
+    console.log(input);
     input.classList.remove(this._inputErrorClass);
+    console.log(this._inputErrorClass);
     errorMessage.textContent = '';
   };
 
