@@ -14,7 +14,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from '../components/Api';
-import PopupWithConfirm from '../components/popupWithConfirm.js';
+import PopupWithConfirm from '../components/PopupWithConfirmation.js';
 import { data } from 'autoprefixer';
 
 const avatarPopup = document.querySelector('.popup_type_avatar');
@@ -89,7 +89,6 @@ const popupAvatar = new PopupWithForm('.popup_type_avatar', '.popup__content', (
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
-    // .finally(popupProfile.loadingStatus())
 
 });
 
