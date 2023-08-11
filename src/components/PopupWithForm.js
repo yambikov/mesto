@@ -10,10 +10,8 @@ export default class PopupWithForm extends Popup {
   }
 
   loadingStatus() {
-    console.log('Сохранение...');
-    this._popupButton.value = 'Сохранение...'
-
-
+    this._popupButton.value = 'Сохранение...';
+    this._popupButton.disabled = true; // Отключаем кнопку во время загрузки
   }
 
   // Получает значения всех полей ввода формы
@@ -48,6 +46,7 @@ export default class PopupWithForm extends Popup {
   // Обработчик события отправки формы
   _handleFormSubmit = (evt) => {
     evt.preventDefault();
+    this.loadingStatus();
     this._handleSubmitForm(this._getInputValues());
   }
 
@@ -55,5 +54,7 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset();
+    this._popupButton.disabled = false;
+    this._popupButton.value = 'Сохранить';
   }
 }

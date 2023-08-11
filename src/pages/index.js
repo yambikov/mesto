@@ -89,7 +89,7 @@ const popupAvatar = new PopupWithForm('.popup_type_avatar', '.popup__content', (
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
-    .finally(popupProfile.loadingStatus())
+    // .finally(popupProfile.loadingStatus())
 
 });
 
