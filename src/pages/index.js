@@ -43,8 +43,8 @@ const popupDelete = new PopupWithConfirm('.popup_type_delete-card', (cardId, car
       popupDelete.close();
       card.removeCard();
     })
-    .catch((error) => {
-      console.error('Ошибка при редактировании профиля:', error); // Выводим ошибку в консоль при возникновении ошибки
+    .catch((err) => {
+      console.log(err); // Выводим ошибку в консоль при возникновении ошибки
     });
 });
 
@@ -73,8 +73,8 @@ const popupProfile = new PopupWithForm('.popup_type_profile', '.popup__content',
       userinfo.setUserInfo(userData); // Обновляем информацию о пользователе на странице
       popupProfile.close(); // Закрываем попап после успешного обновления профиля
     })
-    .catch((error) => {
-      console.error('Ошибка при редактировании профиля:', error); // Выводим ошибку в консоль при возникновении ошибки
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
     });
 });
 
@@ -82,21 +82,19 @@ const popupProfile = new PopupWithForm('.popup_type_profile', '.popup__content',
 const popupAvatar = new PopupWithForm('.popup_type_avatar', '.popup__content', (data) => {
   api.patchAvatar(data)
     .then(res => {
-      console.log(res)
-      userinfo.setUserInfo(res)
+      userinfo.setUserInfo(res);
+      popupAvatar.close();
     })
-    .then(popupAvatar.close())
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
 
 });
-
-
-
 
 // Слушатель на кнопку редактирования аватара
 buttonAvatar.addEventListener('click', () => {
   popupAvatar.open();
   avatarEditValidaror.resetValidation();
-
 });
 
 
