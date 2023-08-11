@@ -1,17 +1,13 @@
-import { data } from "autoprefixer";
-
 export default class Card {
   constructor(data, handleCardClick, cardTemplate, openPopupWithConfirm, userID, likeData) {
     this._data = data;
     this._link = data.link;
     this._name = data.name;
-    // this._like = data.likes.length;
     this._likes = data.likes;
     this._id = data.owner._id;
     this._userId = userID;
     this._cardId = data._id;
     this._card = this;
-    // this._id и this._userId - это одно и тоже 
 
     this._handleCardClick = handleCardClick;
     this._openPopupWithConfirm = openPopupWithConfirm;
@@ -19,122 +15,36 @@ export default class Card {
     this.likesCount = data.likes.length;
     this._handleLikeClick = likeData;
 
-
-    // this._buttonLike = document.querySelector('.element__like'); 
   }
-
-likesCounter(res) {
-  this.likesCount = res.likes.length;
-  console.log('this._likes до')
-  console.log(this._likes);
-  // console.log('res.likes');
-  // console.log(res.likes);
-  this._likes = res.likes;
-  console.log('this._likes после')
-  console.log(this._likes);
-
-  // console.log('res')
-  // console.log(res);
-  this._likeContainer.textContent = this.likesCount;
-  this._buttonLike.classList.toggle('element__like_active');
-  // this.isLikedByUser(res)
-
-}
-
-isLikedByUser = () => {
-  // нужно сделать замену this._likes на новые данные
-  // console.log('this._likes до')
-  // console.log(this._likes);
-  const isLiked = this._likes.some(item => item._id === this._userId);
-
-  // console.log(`Checking if any item is liked by user ${this._userId}: ${isLiked}`);
   
-  return isLiked; // true or false 
-}
+  // метод, который обновляет информацию в DOM при получении её с сервера
+  likesHandler(res) {
+    this.likesCount = res.likes.length; // происходит замена старого кол-ва лайков на новое
+    this._likes = res.likes; // замена старого массива лайков на тот, что получен с сервера после лайка/дислайка
+    this._likeContainer.textContent = this.likesCount; // меняем цифру с кол-вом лайков
+    this._buttonLike.classList.toggle('element__like_active'); // переключаем активный стиль кнопки лайка
 
-  // addLikeToCounter(){
-  //   this.likesCount++;
-  //   console.log(this.likesCount);
-  // }
-
-  dataChecker() {
-    
-    // console.log(this._data);
-    // console.log(this._likes.length);
-    // console.log(this._cardId);
-    // console.log('======================================================================================================================================================================================================');
   }
 
-  // addLikeToCounter() {
-  //   this.likesCount++;
-  //   this._likeContainer.textContent = this.likesCount;
-  // }
+  // Проверка , лайкнул ли пользователь данную карточку
+  isLikedByUser = () => {
+    const isLiked = this._likes.some(item => item._id === this._userId);
+    return isLiked; // true or false 
+  }
 
-  // deleteLikeFromCounter(){
-  //   this.likesCount--;
-  //   this._likeContainer.textContent = this.likesCount;
-  // }
-
-
-  likesTransfer() {
+  // Метод для связки данных с классом Card
+  _likesTransfer() {
     this._handleLikeClick(this._cardId);
   }
 
-  
-  
-
-  // setLikesUpdater() {
-  //   this._callback(newData);
-  //   console.log(this._cardId);
-  //   console.log(this._id);
-  //   console.log(this._userId);
-
-
-  //   // this._likesUpdater = likesUpdater;
-  // }
-
-  // likeButtonHandler () {
-  //   if (this.isLikedByUser() === true) {
-  //     console.log('вкл лайк');
-  //     this._buttonLike.classList.add('element__like_active');
-  //   } else {
-  //     console.log('выкл лайк');
-  //     this._buttonLike.classList.remove('element__like_active');
-  //     this.isLikedByUser.toggle
-
-  //   }
-  // }
-
-  likeButtonHandler() {
+  // Меняет вид кнопки лайка в зависимости от проверки isLikedByUser. Используется при загрзке страницы.
+  _likeButtonHandler() {
     if (this.isLikedByUser()) {
-      // console.log('вкл лайк');
       this._buttonLike.classList.add('element__like_active');
     } else {
-      // console.log('выкл лайк');
       this._buttonLike.classList.remove('element__like_active');
     }
   }
-  
-
-
-
-
-
-
-  
-
-  // isLikedByUser() {
-  //   return this._likes.some(like => like._id === this._userId);
-  // }
-
-
-  // activateLike() {
-  //   this._buttonLike.classList.add('element__like_active');
-  // }
-
-  // deactivateLiked() {
-  //   this._buttonLike.classList.remove('element__like_active');
-  // }
 
   _getTemplate() {
     const template = this.cardTemplate
@@ -148,10 +58,6 @@ isLikedByUser = () => {
     this._element.remove();
   }
 
-  // _handleLikeButton() {
-  //   this._buttonLike.classList.toggle('element__like_active');
-  // }
-
   _openPopupImage() {
     this._handleCardClick(this._data);
   }
@@ -161,13 +67,13 @@ isLikedByUser = () => {
   }
 
   _setEventListeners() {
+
     this._buttonRemove.addEventListener('click', () => {
       this._openPopupWithDelete();
     });
 
     this._buttonLike.addEventListener('click', () => {
-      this.likesTransfer();
-      this.dataChecker();
+      this._likesTransfer();
 
     });
 
@@ -186,10 +92,9 @@ isLikedByUser = () => {
 
   generateCard() {
     this._element = this._getTemplate();
-    this._buttonLike = this._element.querySelector('.element__like'); 
+    this._buttonLike = this._element.querySelector('.element__like');
 
     this._hideRemoveButton();
-    // this.isLikedByUser();
 
     this._buttonLike.classList.add('element__like_active');
     this._cardImage = this._element.querySelector('.element__image');
@@ -197,20 +102,13 @@ isLikedByUser = () => {
     this._likeContainer = this._element.querySelector('.element__like-counter');
 
     this._setEventListeners();
-    // this.dataChecker();
 
     this._cardImage.src = this._link;
     this._cardTitle.textContent = this._name;
     this._cardImage.alt = this._name;
     this._likeContainer.textContent = this.likesCount;
 
-    // if (this.isLikedByUser()) {
-    //   this.activateLike();
-    // } else {
-    //   this.deactivateLiked();
-    // }
-
-    this.likeButtonHandler ()
+    this._likeButtonHandler()
 
     return this._element;
   }

@@ -88,37 +88,17 @@ const api = new Api(apiConfig);
 const section = new Section(
   {
     renderer: (data) => {
-      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (likeData) => {
-        // console.log(`clickData: ${cardId}`);
-        if (card.isLikedByUser(likeData)) {
-          console.log("User has already liked this card");
+      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (likeData) => { //likeData - связка с классом Card
+        if (card.isLikedByUser(likeData)) { // true or false
           api.deleteLike(likeData)
             .then((res) => {
-              // console.log(res.likes.length);
-              card.likesCounter(res);
-              // console.log(card.isLikedByUser());
-              // card.isLiked = false;
-              // console.log(card.isLiked);
-
-              // console.log(res);
-              // card.deleteLikeFromCounter(cardId);
-              // card.deactivateLiked();
+              card.likesHandler(res); // передаем результат удаления/добавления лайка в метод обновления карточки
             })
             .catch((err) => console.log(err));
         } else {
-          console.log("User has not liked this card yet");
           api.putLike(likeData)
             .then((res) => {
-              // console.log(res.likes.length);
-              card.likesCounter(res);
-              // console.log(card.isLikedByUser());
-              // card.isLikedByUser === true;
-              // console.log(card.isLiked);
-              // card.isLiked = true;
-              // console.log(card.isLiked);
-              // console.log(res);
-              // card.addLikeToCounter(cardId);
-              // card.activateLike();
+              card.likesHandler(res);
             })
             .catch((err) => console.log(err));
         }
@@ -126,7 +106,6 @@ const section = new Section(
 
       const cardElement = card.generateCard();
       
-
       return cardElement;
     }
   },
