@@ -16,4 +16,5 @@ export default class UserInfo {
     this._role.textContent = data.about; // ранее data.role
     this._avatar.src = data.avatar
   }
+
 }

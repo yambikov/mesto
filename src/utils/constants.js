@@ -46,6 +46,9 @@ const cardAddButton = document.querySelector('.profile__add-button');
 const cardForm = cardPopup.querySelector('.popup__content');
 const cardTemplate = document.getElementById('template');
 
+
+
+
 export { 
   initialCards, 
   formData, 

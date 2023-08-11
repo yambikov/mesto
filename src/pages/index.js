@@ -17,6 +17,10 @@ import Api from '../components/Api';
 import PopupWithConfirm from '../components/popupWithConfirm.js';
 import { data } from 'autoprefixer';
 
+const avatarPopup = document.querySelector('.popup_type_avatar');
+const avatarForm = avatarPopup.querySelector('.popup__content');
+const buttonAvatar = document.querySelector('.profile__avatar-update-button');
+
 // ID пользователя для иконки корзины
 const userID = "bba7060593119ffd8fc1af1f";
 
@@ -33,10 +37,10 @@ const apiConfig = {
 const openImage = new PopupWithImage('.popup_type_image');
 
 // Функция открытия попапа подтверждения удаления
-const openPopupWithConfirm = new PopupWithConfirm('.popup_type_delete-card', (cardId, card) => {
+const popupDelete = new PopupWithConfirm('.popup_type_delete-card', (cardId, card) => {
   api.deleteCard(cardId)
     .then(() => {
-      openPopupWithConfirm.close();
+      popupDelete.close();
       card.removeCard();
     })
     .catch((error) => {
@@ -55,15 +59,19 @@ profileFormValidator.enableValidation();
 const cardFormValidator = new FormValidator(formData, cardForm);
 cardFormValidator.enableValidation();
 
+// Валидация формы редактирования аватара
+const avatarEditValidaror = new FormValidator(formData, avatarForm);
+avatarEditValidaror.enableValidation();
+
 
 
 // Создание попапа для редактирования профиля
-const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__content', (data) => {
+const popupProfile = new PopupWithForm('.popup_type_profile', '.popup__content', (data) => {
   // Отправляем данные на сервер для обновления профиля
   api.patchUserInfo(data)
     .then(userData => {
       userinfo.setUserInfo(userData); // Обновляем информацию о пользователе на странице
-      popupEditProfile.close(); // Закрываем попап после успешного обновления профиля
+      popupProfile.close(); // Закрываем попап после успешного обновления профиля
     })
     .catch((error) => {
       console.error('Ошибка при редактировании профиля:', error); // Выводим ошибку в консоль при возникновении ошибки
@@ -71,32 +79,34 @@ const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__conte
 });
 
 
-
-const popupEditAvatar = new PopupWithForm('.popup_type_avatar', '.popup__content', (data) => {
+const popupAvatar = new PopupWithForm('.popup_type_avatar', '.popup__content', (data) => {
   console.log(data);
+  api.patchAvatar(data)
+    .then(res => (console.log(res)))
 });
 
-const editAvatarButton = document.querySelector('.profile__avatar-update-button');
+
+
 
 // Слушатель на кнопку редактирования аватара
-editAvatarButton.addEventListener('click', () => {
-  popupEditAvatar.open();
+buttonAvatar.addEventListener('click', () => {
+  popupAvatar.open();
+  avatarEditValidaror.resetValidation();
 
-  // Предзагрузка текущего аватара
-  popupEditAvatar.setEventListeners();
 });
+
 
 // Слушатель на кнопку "Добавить карточку"
 cardAddButton.addEventListener('click', () => {
-  popupAddCard.open();
+  popupCard.open();
   cardFormValidator.resetValidation();
 });
 
 // Слушатель на кнопку "Редактировать профиль"
 profileEditButton.addEventListener('click', () => {
-  popupEditProfile.open();
+  popupProfile.open();
   profileFormValidator.resetValidation();
-  popupEditProfile.setInputValues(userinfo.getUserInfo()); // Заполняем инпуты при открытии попапа
+  popupProfile.setInputValues(userinfo.getUserInfo()); // Заполняем инпуты при открытии попапа
 });
 
 // Создание экземпляра класса Api с переданным конфигурационным объектом 'apiConfig'
@@ -106,7 +116,7 @@ const api = new Api(apiConfig);
 const section = new Section(
   {
     renderer: (data) => {
-      const card = new Card(data, openImage.open, cardTemplate, openPopupWithConfirm, userID, (likeData) => { //likeData - связка с классом Card
+      const card = new Card(data, openImage.open, cardTemplate, popupDelete, userID, (likeData) => { //likeData - связка с классом Card
         if (card.isLikedByUser(likeData)) { // true or false
           api.deleteLike(likeData)
             .then((res) => {
@@ -123,7 +133,7 @@ const section = new Section(
       });
 
       const cardElement = card.generateCard();
-      
+
       return cardElement;
     }
   },
@@ -133,11 +143,11 @@ const section = new Section(
 
 
 // Создание попапа для добавления карточки
-const popupAddCard = new PopupWithForm('.popup_type_card', '.popup__content', (data) => {
+const popupCard = new PopupWithForm('.popup_type_card', '.popup__content', (data) => {
   api.postCard(data)
     .then((cardData) => {
       section.addItem(cardData);
-      popupAddCard.close();
+      popupCard.close();
     })
     .catch((error) => {
       console.error(error);
