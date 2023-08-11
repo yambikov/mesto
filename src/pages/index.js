@@ -81,7 +81,12 @@ const popupProfile = new PopupWithForm('.popup_type_profile', '.popup__content',
 
 const popupAvatar = new PopupWithForm('.popup_type_avatar', '.popup__content', (data) => {
   api.patchAvatar(data)
-    .then(res => (console.log(res)))
+    .then(res => {
+      console.log(res)
+      userinfo.setUserInfo(res)
+    })
+    .then(popupAvatar.close())
+
 });
 
 
