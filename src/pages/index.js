@@ -55,6 +55,8 @@ profileFormValidator.enableValidation();
 const cardFormValidator = new FormValidator(formData, cardForm);
 cardFormValidator.enableValidation();
 
+
+
 // Создание попапа для редактирования профиля
 const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__content', (data) => {
   // Отправляем данные на сервер для обновления профиля
@@ -66,6 +68,22 @@ const popupEditProfile = new PopupWithForm('.popup_type_profile', '.popup__conte
     .catch((error) => {
       console.error('Ошибка при редактировании профиля:', error); // Выводим ошибку в консоль при возникновении ошибки
     });
+});
+
+
+
+const popupEditAvatar = new PopupWithForm('.popup_type_avatar', '.popup__content', (data) => {
+  console.log(data);
+});
+
+const editAvatarButton = document.querySelector('.profile__avatar-update-button');
+
+// Слушатель на кнопку редактирования аватара
+editAvatarButton.addEventListener('click', () => {
+  popupEditAvatar.open();
+
+  // Предзагрузка текущего аватара
+  popupEditAvatar.setEventListeners();
 });
 
 // Слушатель на кнопку "Добавить карточку"
