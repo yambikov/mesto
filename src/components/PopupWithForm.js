@@ -6,6 +6,14 @@ export default class PopupWithForm extends Popup {
     this._form = this._popup.querySelector(formSelector);
     this._handleSubmitForm = handleSubmitForm;
     this._inputs = Array.from(this._form.querySelectorAll('.popup__item'));
+    this._popupButton = this._form.querySelector('.popup__button');
+  }
+
+  loadingStatus() {
+    console.log('Сохранение...');
+    this._popupButton.value = 'Сохранение...'
+
+
   }
 
   // Получает значения всех полей ввода формы
@@ -14,7 +22,7 @@ export default class PopupWithForm extends Popup {
     this._inputs.forEach(input => {
       this._formData[input.name] = input.value;
     });
-    
+
     return this._formData;
   }
 

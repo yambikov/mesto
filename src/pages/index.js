@@ -75,7 +75,7 @@ const popupProfile = new PopupWithForm('.popup_type_profile', '.popup__content',
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
-    });
+    })
 });
 
 
@@ -83,13 +83,16 @@ const popupAvatar = new PopupWithForm('.popup_type_avatar', '.popup__content', (
   api.patchAvatar(data)
     .then(res => {
       userinfo.setUserInfo(res);
+      popupAvatar.loadingStatus()
       popupAvatar.close();
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
+    .finally(popupProfile.loadingStatus())
 
 });
+
 
 // Слушатель на кнопку редактирования аватара
 buttonAvatar.addEventListener('click', () => {
@@ -141,8 +144,6 @@ const section = new Section(
   },
   '.elements'
 );
-
-
 
 // Создание попапа для добавления карточки
 const popupCard = new PopupWithForm('.popup_type_card', '.popup__content', (data) => {
