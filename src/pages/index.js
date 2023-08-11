@@ -94,9 +94,9 @@ const section = new Section(
           console.log("User has already liked this card");
           api.deleteLike(likeData)
             .then((res) => {
-              console.log(res.likes.length);
+              // console.log(res.likes.length);
               card.likesCounter(res);
-              console.log(card.isLikedByUser());
+              // console.log(card.isLikedByUser());
               // card.isLiked = false;
               // console.log(card.isLiked);
 
@@ -109,10 +109,10 @@ const section = new Section(
           console.log("User has not liked this card yet");
           api.putLike(likeData)
             .then((res) => {
-              console.log(res.likes.length);
+              // console.log(res.likes.length);
               card.likesCounter(res);
-              console.log(card.isLikedByUser());
-              card.isLikedByUser === true;
+              // console.log(card.isLikedByUser());
+              // card.isLikedByUser === true;
               // console.log(card.isLiked);
               // card.isLiked = true;
               // console.log(card.isLiked);

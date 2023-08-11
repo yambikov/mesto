@@ -25,13 +25,26 @@ export default class Card {
 
 likesCounter(res) {
   this.likesCount = res.likes.length;
-  console.log(res);
+  console.log('this._likes до')
+  console.log(this._likes);
+  // console.log('res.likes');
+  // console.log(res.likes);
+  this._likes = res.likes;
+  console.log('this._likes после')
+  console.log(this._likes);
+
+  // console.log('res')
+  // console.log(res);
   this._likeContainer.textContent = this.likesCount;
   this._buttonLike.classList.toggle('element__like_active');
+  // this.isLikedByUser(res)
 
 }
 
 isLikedByUser = () => {
+  // нужно сделать замену this._likes на новые данные
+  // console.log('this._likes до')
+  // console.log(this._likes);
   const isLiked = this._likes.some(item => item._id === this._userId);
 
   // console.log(`Checking if any item is liked by user ${this._userId}: ${isLiked}`);
@@ -46,8 +59,8 @@ isLikedByUser = () => {
 
   dataChecker() {
     
-    console.log(this._data);
-    console.log(this._likes.length);
+    // console.log(this._data);
+    // console.log(this._likes.length);
     // console.log(this._cardId);
     // console.log('======================================================================================================================================================================================================');
   }
