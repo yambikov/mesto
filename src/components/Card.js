@@ -15,10 +15,11 @@ export default class Card {
     this.likesCount = data.likes.length;
     this._handleLikeClick = likeData;
 
+
   }
-  
+
   // метод, который обновляет информацию в DOM при получении её с сервера
-  likesHandler(res) {
+  updateLikes(res) {
     this.likesCount = res.likes.length; // происходит замена старого кол-ва лайков на новое
     this._likes = res.likes; // замена старого массива лайков на тот, что получен с сервера после лайка/дислайка
     this._likeContainer.textContent = this.likesCount; // меняем цифру с кол-вом лайков
@@ -33,12 +34,12 @@ export default class Card {
   }
 
   // Метод для связки данных с классом Card
-  _likesTransfer() {
+  _transferLikes() {
     this._handleLikeClick(this._cardId);
   }
 
   // Меняет вид кнопки лайка в зависимости от проверки isLikedByUser. Используется при загрзке страницы.
-  _likeButtonHandler() {
+  _handleLikeButton() {
     if (this.isLikedByUser()) {
       this._buttonLike.classList.add('element__like_active');
     } else {
@@ -73,7 +74,7 @@ export default class Card {
     });
 
     this._buttonLike.addEventListener('click', () => {
-      this._likesTransfer();
+      this._transferLikes();
 
     });
 
@@ -96,7 +97,7 @@ export default class Card {
 
     this._hideRemoveButton();
 
-    this._buttonLike.classList.add('element__like_active');
+    // this._buttonLike.classList.add('element__like_active');
     this._cardImage = this._element.querySelector('.element__image');
     this._cardTitle = this._element.querySelector('.element__title');
     this._likeContainer = this._element.querySelector('.element__like-counter');
@@ -108,7 +109,7 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._likeContainer.textContent = this.likesCount;
 
-    this._likeButtonHandler()
+    this._handleLikeButton()
 
     return this._element;
   }

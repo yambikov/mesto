@@ -4,7 +4,7 @@ export default class Api {
   constructor(options, cardId) {
     this.baseUrl = options.baseUrl;
     this.headers = options.headers;
-    this.data = options.data;
+    this.data = options;
     this.cardId = cardId;
   }
 
@@ -56,7 +56,6 @@ export default class Api {
     return this._makeRequest(`cards/${cardId}/likes`, 'DELETE');
   }
 
-  // PATCH https://mesto.nomoreparties.co/v1/cohortId/users/me/avatar 
   patchAvatar(data) {
     return this._makeRequest(`users/me/avatar`, 'PATCH', data);
   }
