@@ -17,6 +17,8 @@
 * БЭМ Nested
 * Медиазапросы
 * JavaScript
+* Webpack
+* Работа с API
 
 
 **Ссылки**
