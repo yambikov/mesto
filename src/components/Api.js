@@ -4,7 +4,7 @@ export default class Api {
   constructor(options, cardId) {
     this.baseUrl = options.baseUrl;
     this.headers = options.headers;
-    this.data = options.data;
+    this.data = options;
     this.cardId = cardId;
   }
 
