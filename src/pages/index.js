@@ -72,10 +72,13 @@ const popupProfile = new PopupWithForm('.popup_type_profile', '.popup__content',
     .then(userData => {
       userinfo.setUserInfo(userData); // Обновляем информацию о пользователе на странице
       popupProfile.close(); // Закрываем попап после успешного обновления профиля
+      popupProfile.renderLoading(false)
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
+    .finally(
+      popupProfile.renderLoading(true))
 });
 
 
@@ -83,13 +86,14 @@ const popupAvatar = new PopupWithForm('.popup_type_avatar', '.popup__content', (
   api.patchAvatar(data)
     .then(res => {
       userinfo.setUserInfo(res);
-      popupAvatar.loadingStatus()
       popupAvatar.close();
+      popupAvatar.renderLoading(false)
     })
     .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
+      console.log(err);
     })
-
+    .finally(
+      popupAvatar.renderLoading(true))
 });
 
 
@@ -124,13 +128,13 @@ const section = new Section(
         if (card.isLikedByUser(likeData)) { // true or false
           api.deleteLike(likeData)
             .then((res) => {
-              card.likesHandler(res); // передаем результат удаления/добавления лайка в метод обновления карточки
+              card.updateLikes(res); // передаем результат удаления/добавления лайка в метод обновления карточки
             })
             .catch((err) => console.log(err));
         } else {
           api.putLike(likeData)
             .then((res) => {
-              card.likesHandler(res);
+              card.updateLikes(res);
             })
             .catch((err) => console.log(err));
         }
@@ -150,10 +154,13 @@ const popupCard = new PopupWithForm('.popup_type_card', '.popup__content', (data
     .then((cardData) => {
       section.addItem(cardData);
       popupCard.close();
+      popupCard.renderLoading(false)
     })
     .catch((error) => {
       console.error(error);
-    });
+    })
+    .finally(
+      popupCard.renderLoading(true))
 });
 
 // Promise.all для параллельного выполнения запросов
