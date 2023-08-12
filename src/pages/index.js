@@ -22,7 +22,13 @@ const avatarForm = avatarPopup.querySelector('.popup__content');
 const buttonAvatar = document.querySelector('.profile__avatar-update-button');
 
 // ID пользователя для иконки корзины
-const userID = "bba7060593119ffd8fc1af1f";
+// const userID = "bba7060593119ffd8fc1af1f";
+
+let userID;
+
+function checkData() {
+  console.log(userID);
+}
 
 // Конфигурация для API
 const apiConfig = {
@@ -166,6 +172,7 @@ const popupCard = new PopupWithForm('.popup_type_card', '.popup__content', (data
 // Promise.all для параллельного выполнения запросов
 Promise.all([api.getUserInfoApi(), api.getInitialCards()])
   .then(([userData, cardsData]) => {
+    userID = userData._id;
     section.renderItems(cardsData.reverse());
     userinfo.setUserInfo(userData);
   })

@@ -5,7 +5,6 @@ export default class Card {
     this._name = data.name;
     this._likes = data.likes;
     this._id = data.owner._id;
-    // this._userId = userID;
     this._userId = userID;
     this._cardId = data._id;
     this._card = this;
@@ -16,8 +15,9 @@ export default class Card {
     this.likesCount = data.likes.length;
     this._handleLikeClick = likeData;
 
+
   }
-  
+
   // метод, который обновляет информацию в DOM при получении её с сервера
   updateLikes(res) {
     this.likesCount = res.likes.length; // происходит замена старого кол-ва лайков на новое
