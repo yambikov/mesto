@@ -26,10 +26,6 @@ const buttonAvatar = document.querySelector('.profile__avatar-update-button');
 
 let userID;
 
-function checkData() {
-  console.log(userID);
-}
-
 // Конфигурация для API
 const apiConfig = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-72/',
@@ -72,35 +68,45 @@ avatarEditValidaror.enableValidation();
 
 
 // Создание попапа для редактирования профиля
-const popupProfile = new PopupWithForm('.popup_type_profile', '.popup__content', (data) => {
-  // Отправляем данные на сервер для обновления профиля
-  api.patchUserInfo(data)
-    .then(userData => {
-      userinfo.setUserInfo(userData); // Обновляем информацию о пользователе на странице
-      popupProfile.close(); // Закрываем попап после успешного обновления профиля
-      popupProfile.renderLoading(false)
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
-    .finally(
-      popupProfile.renderLoading(true))
-});
+const popupProfile = new PopupWithForm(
+  '.popup_type_profile',
+  '.popup__content',
+  (data) => {
+    popupProfile.renderLoading(true);
+    // Отправляем данные на сервер для обновления профиля
+    api
+      .patchUserInfo(data)
+      .then(userData => {
+        userinfo.setUserInfo(userData); // Обновляем информацию о пользователе на странице
+        popupProfile.close(); // Закрываем попап после успешного обновления профиля
+      })
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      })
+      .finally(() => {
+        popupProfile.renderLoading(false);  // заканчиваем в `finally`
+      });
+  });
 
 
-const popupAvatar = new PopupWithForm('.popup_type_avatar', '.popup__content', (data) => {
-  api.patchAvatar(data)
-    .then(res => {
-      userinfo.setUserInfo(res);
-      popupAvatar.close();
-      popupAvatar.renderLoading(false)
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(
-      popupAvatar.renderLoading(true))
-});
+const popupAvatar = new PopupWithForm(
+  '.popup_type_avatar',
+  '.popup__content',
+  (data) => {
+    popupAvatar.renderLoading(true);
+    api
+      .patchAvatar(data)
+      .then(res => {
+        userinfo.setUserInfo(res);
+        popupAvatar.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupAvatar.renderLoading(false);
+      });
+  });
 
 
 // Слушатель на кнопку редактирования аватара
@@ -155,19 +161,24 @@ const section = new Section(
 );
 
 // Создание попапа для добавления карточки
-const popupCard = new PopupWithForm('.popup_type_card', '.popup__content', (data) => {
-  api.postCard(data)
-    .then((cardData) => {
-      section.addItem(cardData);
-      popupCard.close();
-      popupCard.renderLoading(false)
-    })
-    .catch((error) => {
-      console.error(error);
-    })
-    .finally(
-      popupCard.renderLoading(true))
-});
+const popupCard = new PopupWithForm(
+  '.popup_type_card',
+  '.popup__content',
+  (data) => {
+    popupCard.renderLoading(true);
+    api
+      .postCard(data)
+      .then((cardData) => {
+        section.addItem(cardData);
+        popupCard.close();
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        popupCard.renderLoading(false);
+      })
+  });
 
 // Promise.all для параллельного выполнения запросов
 Promise.all([api.getUserInfoApi(), api.getInitialCards()])
@@ -175,6 +186,7 @@ Promise.all([api.getUserInfoApi(), api.getInitialCards()])
     userID = userData._id;
     section.renderItems(cardsData.reverse());
     userinfo.setUserInfo(userData);
+    console.log('Промисы выполнились успешно!');
   })
   .catch((error) => {
     console.error(error);

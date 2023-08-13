@@ -66,7 +66,7 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset();
-    this._submitBtn.disabled = false;
+    // this._submitBtn.disabled = false;
     // this._popupButton.value = 'Сохранить';
   }
 }
